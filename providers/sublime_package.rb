@@ -4,4 +4,6 @@ action :install do
     user new_resource.owner
     action :sync
   end
+
+  new_resource.updated_by_last_action(true)
 end

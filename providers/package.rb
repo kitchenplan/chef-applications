@@ -39,5 +39,7 @@ action :install do
       command   %{unzip '#{downloaded_file}'}
       creates   "#{new_resource.destination}/#{new_resource.app}.app"
     end
+
+    new_resource.updated_by_last_action(true)
   end
 end
