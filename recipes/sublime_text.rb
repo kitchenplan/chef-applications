@@ -16,7 +16,7 @@ recursive_directories sublime_user_path do
 end
 
 node["sublime_text_packages"].each do |package|
-  pivotal_workstation_sublime_package package["name"] do
+  applications_sublime_package package["name"] do
     source package["source"]
     destination File.join(sublime_package_path)
     owner node['current_user']
