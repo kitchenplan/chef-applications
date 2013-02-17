@@ -55,8 +55,6 @@ disable a tapped repository.
       action :untap
     end
 
-```
-
 Contributing
 ------------
 
