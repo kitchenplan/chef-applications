@@ -18,7 +18,7 @@
 #
 
 def load_current_resource
-  @zip_pkg = Chef::Resource::ApplicationPackage.new(new_resource.name)
+  @zip_pkg = Chef::Resource::ApplicationsPackage.new(new_resource.name)
   Chef::Log.debug("Checking for application #{new_resource.app}")
   installed = ::File.directory?("#{new_resource.destination}/#{new_resource.app}.app")
   @zip_pkg.installed(installed)
