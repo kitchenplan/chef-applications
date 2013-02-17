@@ -1,4 +1,4 @@
-Homebrew Cookbook
+Homebrew Cookbook [![Build Status](https://travis-ci.org/Kitchenplan/chef-homebrew.png?branch=master)](https://travis-ci.org/Kitchenplan/chef-homebrew)
 =================
 
 A cookbook, based on the Opscode Homebrew Cookbook but adjusted to work with soloist. Also moved and cleaned up some pivotal_workstation recipes.
