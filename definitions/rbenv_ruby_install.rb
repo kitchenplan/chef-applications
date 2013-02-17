@@ -4,7 +4,7 @@ define :rbenv_ruby_install do
 
   include_recipe "homebrew::rbenv"
 
-  install_cmd = "#{options[:env]} /usr/local/bin/rbenv install #{ruby_version} #{options[:command_line_options]}"
+  install_cmd = "#{options[:env]} rbenv install #{ruby_version} #{options[:command_line_options]}"
 
   execute "installing #{ruby_version} with RBENV: #{install_cmd}" do
     only_if params[:only_if] if params[:only_if]
@@ -15,7 +15,7 @@ define :rbenv_ruby_install do
   end
 
   execute "check #{ruby_version}" do
-    command "/usr/local/bin/rbenv versions | grep #{ruby_version}"
+    command "rbenv versions | grep #{ruby_version}"
     user params[:user] || node['current_user']
   end
 end
