@@ -2,7 +2,7 @@ define :rbenv_ruby_install do
   ruby_version = params[:version] || params[:name]
   options = params[:options] || {}
 
-  include_recipe "homebrew:rbenv"
+  include_recipe "homebrew::rbenv"
 
   install_cmd = "#{options[:env]} /usr/local/bin/rbenv install #{ruby_version} #{options[:command_line_options]}"
 
