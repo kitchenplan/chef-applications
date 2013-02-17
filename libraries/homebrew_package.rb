@@ -60,7 +60,7 @@ class Chef
         end
 
         def get_version_from_formula
-          brew_cmd = shell_out!("brew --prefix")
+          brew_cmd = shell_out!("sudo -u #{node['current_user']} brew --prefix")
           libpath = ::File.join(brew_cmd.stdout.chomp, "Library", "Homebrew")
           $:.unshift(libpath)
 
