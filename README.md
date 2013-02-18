@@ -1,12 +1,7 @@
-applications Cookbook
+applications Cookbook [![Build Status](https://travis-ci.org/Kitchenplan/chef-applications.png?branch=master)](https://travis-ci.org/Kitchenplan/chef-applications)
 =====================
 
 A cookbook, based on the pivotal_workstation, but without a lot of custom providers and a lot cleaner.
-
-Requirements
-------------
-
-- `dmg` - applications needs the dmg cookbook
 
 Contributing
 ------------
