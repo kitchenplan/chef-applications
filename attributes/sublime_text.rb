@@ -8,9 +8,7 @@ node.default["sublime_text_packages"] = [
   {"name" => "Tomorrow Color Schemes", "source" => "https://github.com/theymaybecoders/sublime-tomorrow-theme"},
   {"name" => "DetectSyntax", "source" => "https://github.com/phillipkoebbe/DetectSyntax"},
   {"name" => "SCSS", "source" => "https://github.com/kuroir/SCSS.tmbundle"},
-  {"name" => "PHPNamespaceCommand", "source" => "http://alexandre-salome.fr/blog/SublimeText-2-Insert-PHP-namespaces"},
   {"name" => "SublimeLinter", "source" => "http://github.com/SublimeLinter/SublimeLinter"},
-  {"name" => "CoffeeScript", "source" => "http://xavura.github.com/CoffeeScript-Sublime-Plugin"},
-  {"name" => "Alignment", "source" => "http://wbond.net/sublime_packages/alignment" },
+  {"name" => "CoffeeScript", "source" => "https://github.com/Xavura/CoffeeScript-Sublime-Plugin.git"},
   {"name" => "MarkdownPreview", "source" => "https://github.com/revolunet/sublimetext-markdown-preview"}
 ]
