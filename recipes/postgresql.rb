@@ -1,7 +1,6 @@
 include_recipe "homebrew::default"
 
-installed = `sudo -u #{node['current_user']} brew brew list -1 | grep ^postgresql$`
-unless installed
+if `sudo -u #{node['current_user']} brew list -1 | grep ^postgresql$`.empty?
     ["homebrew.mxcl.postgresql.plist", "org.postgresql.postgres.plist" ].each do |plist|
         plist_path = File.expand_path(plist, File.join('~', 'Library', 'LaunchAgents'))
         if File.exists?(plist_path)
