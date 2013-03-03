@@ -6,9 +6,11 @@ node.default["sublime_text_packages"] = [
   {"name" => "SublimeCodeIntel", "source" => "http://github.com/Kronuz/SublimeCodeIntel"},
   {"name" => "Theme - Aqua", "source" => "https://github.com/cafarm/aqua-theme"},
   {"name" => "Tomorrow Color Schemes", "source" => "https://github.com/theymaybecoders/sublime-tomorrow-theme"},
+  {"name" => "Solarized", "source" => "https://github.com/mybuddymichael/solarized-sublimetext2"},
   {"name" => "DetectSyntax", "source" => "https://github.com/phillipkoebbe/DetectSyntax"},
   {"name" => "SCSS", "source" => "https://github.com/kuroir/SCSS.tmbundle"},
   {"name" => "SublimeLinter", "source" => "http://github.com/SublimeLinter/SublimeLinter"},
   {"name" => "CoffeeScript", "source" => "https://github.com/Xavura/CoffeeScript-Sublime-Plugin.git"},
   {"name" => "MarkdownPreview", "source" => "https://github.com/revolunet/sublimetext-markdown-preview"}
 ]
+node.default["sublime_text"]["color_scheme"] = "Packages/Tomorrow Color Schemes/Tomorrow-Night-Eighties.tmTheme"
