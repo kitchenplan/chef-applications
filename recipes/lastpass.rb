@@ -3,5 +3,5 @@ dmg_package "lpmacosx" do
   volumes_dir "LastPass for Mac OS X"
   action :install
   type "pkg"
-#  package_id "org.wireshark.Wireshark.pkg"
+  package_id "com.lastpass.lpmacosx"
 end
