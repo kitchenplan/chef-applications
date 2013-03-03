@@ -1,5 +1,5 @@
 include_recipe "homebrew::default"
 
-package "htop" do
+package "htop-osx" do
   action :install
 end
