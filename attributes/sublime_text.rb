@@ -11,6 +11,7 @@ node.default["sublime_text_packages"] = [
   {"name" => "SCSS", "source" => "https://github.com/kuroir/SCSS.tmbundle"},
   {"name" => "SublimeLinter", "source" => "http://github.com/SublimeLinter/SublimeLinter"},
   {"name" => "CoffeeScript", "source" => "https://github.com/Xavura/CoffeeScript-Sublime-Plugin.git"},
-  {"name" => "MarkdownPreview", "source" => "https://github.com/revolunet/sublimetext-markdown-preview"}
+  {"name" => "MarkdownPreview", "source" => "https://github.com/revolunet/sublimetext-markdown-preview"},
+  {"name" => "GitGutter", "source" => "https://github.com/jisaacks/GitGutter.git"}
 ]
 node.default["sublime_text"]["color_scheme"] = "Packages/Tomorrow Color Schemes/Tomorrow-Night-Eighties.tmTheme"
