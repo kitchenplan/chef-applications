@@ -18,6 +18,7 @@ package "php54-yaml"
 package "php54-imagick"
 package "php54-solr"
 package "php54-twig"
+package "php54-mcrypt"
 
 template "/usr/local/etc/php/5.4/conf.d/99-kunstmaan.ini" do
     source "phpconfig.erb"
