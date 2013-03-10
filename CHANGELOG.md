@@ -1,4 +1,4 @@
-# CHANGELOG for applications
+# CHANGELOG for homebrew-apps
 
 This file is used to list changes made in each version of applications.
 
