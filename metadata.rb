@@ -6,8 +6,7 @@ description      'Installs and configures the package manager and facilitates in
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.0.1'
 
-%w{ mac_os_x ubuntu debian }.each do |os|
-  supports os
-end
-
-depends "apt"
+supports         "mac_os_x"
+supports         "debian"
+supports         "ubuntu"
+depends          "apt"
