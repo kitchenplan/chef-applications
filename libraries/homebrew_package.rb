@@ -25,7 +25,9 @@ class Chef
         end
 
         def upgrade_package(name, version)
-          brew('upgrade', name)
+          unless `brew outdated | grep #{name}`
+            brew('upgrade', name)
+          end
         end
 
         def remove_package(name, version)

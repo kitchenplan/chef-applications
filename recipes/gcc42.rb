@@ -1,7 +1,7 @@
 include_recipe "applications::default"
 
-homebrew_tap "homebrew/dupes"
+applications_tap "homebrew/dupes"
 
 package "apple-gcc42" do
-  action :install
+  action [:install, :upgrade]
 end

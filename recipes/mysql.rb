@@ -31,7 +31,7 @@ PARENT_DATA_DIR = "/usr/local/var"
 end
 
 package "mysql" do
-  action :install
+  action [:install, :upgrade]
 end
 
 execute "copy over the plist" do

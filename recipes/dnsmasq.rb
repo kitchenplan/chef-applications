@@ -1,7 +1,7 @@
 include_recipe "applications::default"
 
 package "dnsmasq" do
-  action :install
+  action [:install, :upgrade]
 end
 
 template "/usr/local/etc/dnsmasq.conf" do

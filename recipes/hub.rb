@@ -3,5 +3,5 @@ include_recipe "applications::bash-completion"
 include_recipe "applications::git"
 
 package "hub" do
-  action :install
+  action [:install, :upgrade]
 end

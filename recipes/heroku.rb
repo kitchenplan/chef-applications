@@ -1,5 +1,5 @@
 include_recipe "applications::default"
 
 package "heroku-toolbelt" do
-  action :install
+  action [:install, :upgrade]
 end

@@ -21,7 +21,7 @@ if `sudo -u #{node['current_user']} brew list -1 | grep ^postgresql$`.empty?
     end
 
     package "postgresql" do
-        action :install
+        action [:install, :upgrade]
     end
 
     execute "create the database" do

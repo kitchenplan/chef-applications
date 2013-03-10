@@ -1,7 +1,7 @@
 include_recipe "applications::default"
 
 package "bash" do
-  action :install
+  action [:install, :upgrade]
 end
 
 if platform_family?('mac_os_x')
