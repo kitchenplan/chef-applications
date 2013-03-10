@@ -1,4 +1,4 @@
-include_recipe "homebrew::default"
+include_recipe "applications::default"
 
 package "wget" do
   action :install

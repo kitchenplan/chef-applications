@@ -1,5 +1,5 @@
-include_recipe "homebrew::default"
-include_recipe "homebrew::apache"
+include_recipe "applications::default"
+include_recipe "applications::apache"
 
 homebrew_tap "josegonzalez/php"
 homebrew_tap "homebrew/dupes"

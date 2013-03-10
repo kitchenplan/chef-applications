@@ -1,4 +1,4 @@
-include_recipe "homebrew::default"
+include_recipe "applications::default"
 
 if `sudo -u #{node['current_user']} brew list -1 | grep ^postgresql$`.empty?
     ["homebrew.mxcl.postgresql.plist", "org.postgresql.postgres.plist" ].each do |plist|

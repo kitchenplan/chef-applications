@@ -1,4 +1,4 @@
-include_recipe "homebrew::default"
+include_recipe "applications::default"
 
 package "gnu-tar" do
   action :install

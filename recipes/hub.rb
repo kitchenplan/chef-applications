@@ -1,6 +1,6 @@
-include_recipe "homebrew::default"
-include_recipe "homebrew::bash-completion"
-include_recipe "homebrew::git"
+include_recipe "applications::default"
+include_recipe "applications::bash-completion"
+include_recipe "applications::git"
 
 package "hub" do
   action :install

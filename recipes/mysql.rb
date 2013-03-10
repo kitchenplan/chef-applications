@@ -1,4 +1,4 @@
-include_recipe "homebrew::default"
+include_recipe "applications::default"
 
 #http://solutions.treypiepmeier.com/2010/02/28/installing-mysql-on-snow-leopard-using-homebrew/
 require 'pathname'

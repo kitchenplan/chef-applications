@@ -1,4 +1,4 @@
-include_recipe "homebrew::default"
+include_recipe "applications::default"
 
 template "/etc/apache2/other/kdeploy.conf" do
   source "apache_kdeploy.erb"

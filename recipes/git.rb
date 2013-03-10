@@ -1,5 +1,5 @@
-include_recipe "homebrew::default"
-include_recipe "homebrew::bash-completion"
+include_recipe "applications::default"
+include_recipe "applications::bash-completion"
 
 package "git" do
   action :install
