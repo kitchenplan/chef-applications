@@ -7,8 +7,9 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.0.1'
 
 supports         "mac_os_x"
-depends          "dmg"
-depends          "composer"
 supports         "debian"
 supports         "ubuntu"
+depends          "dmg"
+depends          "composer"
 depends          "apt"
+depends          "rvm"
