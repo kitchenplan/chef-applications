@@ -9,7 +9,9 @@ apt_repository "kdeploy" do
   keyserver "keyserver.ubuntu.com"
   key "4CBEDD5A"
   deb_src true
-  only_if platform?("ubuntu")
+  only_if do
+    platform?("ubuntu")
+  end
 end
 
 package "git" do
