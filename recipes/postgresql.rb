@@ -1,5 +1,10 @@
 include_recipe "applications::default"
 
+postgresuser = value_for_platform(
+    ["ubuntu"] => { "default" => "postgres"},
+    "default" => node['current_user']
+)
+
 if platform?('mac_os_x')
     if `sudo -u #{node['current_user']} brew list -1 | grep ^postgresql$`.empty?
         ["homebrew.mxcl.postgresql.plist", "org.postgresql.postgres.plist" ].each do |plist|
@@ -87,27 +92,15 @@ if platform?('mac_os_x')
             end
         end
     end
-    
-    execute "create the postgres smlscript superuser" do
-        command "psql -d template1 -c 'create user smlscript;'"
-        user node['current_user']
-        not_if "psql -d template1 -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => node['current_user']
-    end
-
-    execute "create the postgres '#{node['current_user']}' superuser" do
-        command "psql -d template1 -c \"alter user smlscript with password 'sml';\""
-        user node['current_user']
-    end
-
-    execute "create the postgres '#{node['current_user']}' superuser" do
-        command "psql -d template1 -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
-        user node['current_user']
-    end
-
 elsif platform_family?('debian')
     
     package "postgresql-9.1" do
         action [:install, :upgrade]
+    end
+    
+    service "postgresql" do
+        supports [:restart]
+        action :enable
     end
 
     template "/etc/postgresql/9.1/main/pg_hba.conf" do
@@ -115,22 +108,23 @@ elsif platform_family?('debian')
         owner "postgres"
         group "postgres"
         mode "0640"
+        notifies :restart, "service[postgresql]"
     end
     
-    execute "create the postgres smlscript superuser" do
-        command "psql -d template1 -c 'create user smlscript;'"
-        user "postgres"
-        not_if "psql -d template1 -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => "postgres"
-    end
+end
 
-    execute "create the postgres '#{node['current_user']}' superuser" do
-        command "psql -d template1 -c \"alter user smlscript with password 'sml';\""
-        user "postgres"
-    end
+execute "create the postgres smlscript superuser" do
+    command "psql -d template1 -c 'create user smlscript;'"
+    user postgresuser
+    not_if "psql -d template1 -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => "postgres"
+end
 
-    execute "create the postgres '#{node['current_user']}' superuser" do
-        command "psql -d template1 -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
-        user "postgres"
-    end
-    
+execute "create the postgres '#{node['current_user']}' superuser" do
+    command "psql -d template1 -c \"alter user smlscript with password 'sml';\""
+    user postgresuser
+end
+
+execute "create the postgres '#{node['current_user']}' superuser" do
+    command "psql -d template1 -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
+    user postgresuser
 end
