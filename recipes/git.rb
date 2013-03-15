@@ -5,7 +5,7 @@ include_recipe "applications::bash-completion"
 apt_repository "kdeploy" do
   uri "http://ppa.launchpad.net/pdoes/ppa/ubuntu"
   distribution { node['lsb']['codename'] || "quantal" }
-  components ["main"]
+  components [node['lsb']['codename'], "main"]
   keyserver "keyserver.ubuntu.com"
   key "4CBEDD5A"
   deb_src true
