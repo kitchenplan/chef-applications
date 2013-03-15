@@ -116,7 +116,7 @@ end
 execute "create the postgres smlscript superuser" do
     command "psql -d template1 -c 'create user smlscript;'"
     user postgresuser
-    not_if "psql -d template1 -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => "postgres"
+    not_if "psql -d template1 -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
 end
 
 execute "create the postgres '#{node['current_user']}' superuser" do
