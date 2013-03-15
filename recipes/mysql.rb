@@ -69,16 +69,29 @@ elsif platform_family?('debian')
 
     apt_repository "percona" do
         uri "http://repo.percona.com/apt"
-        components ["precise", "main"]
+        components [node['lsb']['codename'], "main"]
         keyserver "hkp://keys.gnupg.net"
         key "CD2EFD2A"
     end
-    
-    %w[percona-server-server-5.5 percona-server-client-5.5 percona-toolkit python-mysqldb].each do |pkg|
+
+    %w[percona-server-server-5.5 percona-server-client-5.5 percona-toolkit libinnodb3].each do |pkg|
         package pkg do
             action [:install, :upgrade]
         end
-    end 
+    end
+    
+    service "mysql" do
+        supports [:restart]
+        action :enable
+    end
+
+    template "/etc/mysql/conf.d/tuning.cnf" do
+        source "tuning.cnf.erb"
+        owner "root"
+        group "root"
+        mode "0644"
+        notifies :restart, "service[mysql]"
+    end
 end
 
 execute "set the root password to the default" do
