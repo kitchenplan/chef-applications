@@ -1,4 +1,3 @@
-
 if platform?('mac_os_x')
   dmg_package "Google Chrome" do
     dmg_name "googlechrome"
@@ -15,5 +14,7 @@ elsif platform_family?('debian')
     key "https://dl-ssl.google.com/linux/linux_signing_key.pub"
     action :add
   end
-  package "google-chrome-stable"
+  package "google-chrome-stable" do
+    action [:install, :upgrade]
+  end
 end
