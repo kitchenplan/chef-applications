@@ -85,8 +85,13 @@ elsif platform_family?('debian')
         action :enable
     end
 
+    execute "purge the mysql-common" do
+        command %'aptitude -y purge mysql-common'
+        user "root"
+    end
+
     template "/etc/mysql/conf.d/tuning.cnf" do
-        source "tuning.cnf.erb"
+        source "mysql.tuning.cnf.erb"
         owner "root"
         group "root"
         mode "0644"
