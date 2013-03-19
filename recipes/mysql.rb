@@ -66,6 +66,11 @@ if platform?('mac_os_x')
         end
       end
     end
+    
+    execute "set the root password to the default" do
+      command "mysqladmin -uroot password #{PASSWORD}"
+      not_if "mysql -uroot -p#{PASSWORD} -e 'show databases'"
+    end
 elsif platform_family?('debian')
 
     #Make use of the percona recipe to install percona
@@ -73,23 +78,18 @@ elsif platform_family?('debian')
     include_recipe "percona::server"
     include_recipe "percona::toolkit"
     
-    service "mysql" do
-        supports [:restart]
-        action :enable
-    end
+    #service "mysql" do
+    #    supports [:restart]
+    #    action :enable
+    #end
 
     #Add the tuning file for the percona
-    template "/etc/mysql/conf.d/tuning.cnf" do
-        source "mysql.tuning.cnf.erb"
-        owner "root"
-        group "root"
-        mode "0644"
-        notifies :restart, "service[mysql]"
-    end
+    #template "/etc/mysql/conf.d/tuning.cnf" do
+    #    source "mysql.tuning.cnf.erb"
+    #    owner "root"
+    #    group "root"
+    #    mode "0644"
+    #    notifies :restart, "service[mysql]"
+    #end
     
-end
-
-execute "set the root password to the default" do
-  command "mysqladmin -uroot password #{PASSWORD}"
-  not_if "mysql -uroot -p#{PASSWORD} -e 'show databases'"
 end
