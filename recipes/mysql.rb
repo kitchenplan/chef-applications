@@ -73,10 +73,14 @@ if platform?('mac_os_x')
     end
 elsif platform_family?('debian')
 
+    include_recipe "mysql::percona_repo"
+    include_recipe "mysql::client"
+    include_recipe "mysql::server"
+
     #Make use of the percona recipe to install percona
-    include_recipe "percona::client"
-    include_recipe "percona::server"
-    include_recipe "percona::toolkit"
+    #include_recipe "percona::client"
+    #include_recipe "percona::server"
+    #include_recipe "percona::toolkit"
     
     #service "mysql" do
     #    supports [:restart]
