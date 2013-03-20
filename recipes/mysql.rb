@@ -73,27 +73,6 @@ if platform?('mac_os_x')
     end
 elsif platform_family?('debian')
 
-    include_recipe "mysql::percona_repo"
-    include_recipe "mysql::client"
-    include_recipe "mysql::server"
-
-    #Make use of the percona recipe to install percona
-    #include_recipe "percona::client"
-    #include_recipe "percona::server"
-    #include_recipe "percona::toolkit"
-    
-    #service "mysql" do
-    #    supports [:restart]
-    #    action :enable
-    #end
-
-    #Add the tuning file for the percona
-    #template "/etc/mysql/conf.d/tuning.cnf" do
-    #    source "mysql.tuning.cnf.erb"
-    #    owner "root"
-    #    group "root"
-    #    mode "0644"
-    #    notifies :restart, "service[mysql]"
-    #end
+    #Wachten tot thomas dit gedaan heeft.
     
 end
