@@ -56,10 +56,25 @@ if platform_family?('debian')
         end
     end
 
+    #Settings for mod_jk
     template "/etc/apache2/mods-enabled/jk.conf" do
-        source "apache_jk.conf"
+        source "apache_jk.conf.erb"
         owner "root"
         mode "0755"
+        notifies :restart, "service[apache2]"
+    end
+    
+    template "/etc/apache2/conf/projects.d/namevirtualhosts" do
+        source "apache_namevirtualhosts.erb"
+        owner "root"
+        mode "0644"
+        notifies :restart, "service[apache2]"
+    end
+    
+    template "/etc/apache2/apache2.conf" do
+        source "apache2.conf.erb"
+        owner "root"
+        mode "0644"
         notifies :restart, "service[apache2]"
     end
 
@@ -74,5 +89,6 @@ if platform_family?('debian')
             a2dissite 000-default
         EOH
         only_if File.exists?("/etc/apache2/sites-enabled/000-default")
-    end 
+    end
+    
 end
