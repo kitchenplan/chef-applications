@@ -1,0 +1,22 @@
+# Put this before the namevirtualhosts line
+<Location /server-info>
+    SetHandler server-info
+    Order deny,allow
+    Deny from all
+    Allow from 127.0.0.1
+</Location>
+
+ExtendedStatus on
+
+<Location /server-status>
+    SetHandler server-status
+    Order deny,allow
+    Deny from all
+    Allow from 127.0.0.1
+</Location>
+
+# Include the virtual host configurations:
+Include /etc/apache2/conf/projects.d/namevirtualhosts
+
+# At the end of /etc/apache2/apache2.conf add the following:
+Include /etc/apache2/conf/projects.d/[^.#]*.conf

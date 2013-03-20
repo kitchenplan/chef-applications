@@ -1,17 +1,26 @@
 include_recipe "applications::default"
 include_recipe "apache2::default"
 
-template "/etc/apache2/other/kdeploy.conf" do
-  source "apache_kdeploy.erb"
-  owner "root"
-  group value_for_platform(
-                            "mac_os_x" => { "default" => "admin" },
-                            "default" => "root"
-                          )
-  mode "0755"
-  variables(
-    :user => node['current_user']
-  )
+if platform?('mac_os_x')
+    template "/etc/apache2/other/kdeploy.conf" do
+      source "apache_kdeploy_osx.erb"
+      owner "root"
+      group value_for_platform(
+                                "mac_os_x" => { "default" => "admin" },
+                                "default" => "root"
+                              )
+      mode "0755"
+      variables(
+        :user => node['current_user']
+      )
+    end
+elsif platform_family?('debian')
+    template "/etc/apache2/conf.d/kdeploy.conf" do
+        source "apache_kdeploy_debian.erb"
+        owner "root"
+        mode "0755"
+        notifies :restart, "service[apache2]"
+    end
 end
 
 %w{/etc/apache2/conf/projects.d /etc/apache2/logs /opt/nowebsite}.each do |pkg|
