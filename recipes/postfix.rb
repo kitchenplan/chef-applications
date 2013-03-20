@@ -17,7 +17,7 @@ if platform_family?('debian')
         notifies :restart, "service[postfix]"
     end
     
-    script "fix mailname" do
+    script "use correct mailname" do
         interpreter "bash"
         user "root"
         code <<-EOH
