@@ -73,6 +73,6 @@ if platform_family?('debian')
         code <<-EOH
             a2dissite 000-default
         EOH
-        only_if "-L /etc/apache2/sites-enabled/000-default"
+        only_if File.exists?("/etc/apache2/sites-enabled/000-default")
     end 
 end
