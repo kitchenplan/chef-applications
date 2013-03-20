@@ -14,4 +14,7 @@ depends          "composer"
 depends          "apt"
 depends          "rvm"
 depends          "mysql"
+<<<<<<< HEAD
+=======
 depends          "apache2"
+>>>>>>> 34e94017e4bbf942920fc0adccd5fabf1a4ed1f0
