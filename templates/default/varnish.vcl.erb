@@ -1,0 +1,262 @@
+# This is a basic VCL configuration file for varnish.  See the vcl(7)
+# man page for details on VCL syntax and semantics.
+#
+# Default backend definition.  Set this to point to your content
+# server.
+#
+backend default {
+    .host = "127.0.0.1";
+    .port = "80";
+    .first_byte_timeout = 300s;
+}
+
+acl purge {
+    # For now, I'll only allow purges coming from localhost
+    "127.0.0.1";
+    "localhost";
+}
+
+sub vcl_recv {
+
+    # Serve objects up to 2 minutes past their expiry if the backend is slow to respond.
+    set req.grace = 120s;
+
+    if (req.restarts == 0) {
+        if (req.http.X-Forwarded-For) {
+            set req.http.X-Forwarded-For = req.http.X-Forwarded-For + ", " + client.ip;
+        } else {
+            set req.http.X-Forwarded-For = client.ip;
+        }
+    }
+
+    # Normalize the header, remove the port (in case you're testing this on various TCP ports)
+    set req.http.Host = regsub(req.http.Host, ":[0-9]+", "");
+
+    # Allow purging
+    if (req.request == "PURGE") {
+        if (!client.ip ~ purge) {
+            # Not from an allowed IP? Then die with an error.
+            error 405 "This IP is not allowed to send PURGE requests.";
+        }
+
+        # If you got this stage (and didn't error out above), do a cache-lookup
+        # That will force entry into vcl_hit() or vcl_miss() below and purge the actual cache
+        return (lookup);
+    }
+
+    # Only deal with "normal" types
+    if (req.request != "GET" &&
+            req.request != "HEAD" &&
+            req.request != "PUT" &&
+            req.request != "POST" &&
+            req.request != "TRACE" &&
+            req.request != "OPTIONS" &&
+            req.request != "DELETE") {
+                /* Non-RFC2616 or CONNECT which is weird. */
+                return (pipe);
+    }
+
+    if (req.request != "GET" && req.request != "HEAD") {
+        # We only deal with GET and HEAD by default
+        return (pass);
+    }
+
+    if (req.url ~ "\/download\/"){
+	# Downloader
+	return (lookup);
+    }
+
+    if (req.url ~ "\.(png|gif|jpg|swf|css|js|ico|eot|svg|ttf|woff|htc)$") {
+        # Always run static assets throug the cache
+        return (lookup);
+    }
+
+
+    # Some generic URL manipulation, useful for all templates that follow
+    # First remove the Google Analytics added parameters, useless for our backend
+    if(req.url ~ "(\?|&)(utm_source|utm_medium|utm_campaign|gclid|cx|ie|cof|siteurl)=") {
+        set req.url = regsuball(req.url, "&(utm_source|utm_medium|utm_campaign|gclid|cx|ie|cof|siteurl)=([A-z0-9_\-\.%25]+)", "");
+        set req.url = regsuball(req.url, "\?(utm_source|utm_medium|utm_campaign|gclid|cx|ie|cof|siteurl)=([A-z0-9_\-\.%25]+)", "?");
+        set req.url = regsub(req.url, "\?&", "?");
+        set req.url = regsub(req.url, "\?$", "");
+    }
+
+    # Strip hash, server doesn't need it.
+    if (req.url ~ "\#") {
+        set req.url = regsub(req.url, "\#.*$", "");
+    }
+
+    # Strip a trailing ? if it exists
+    if (req.url ~ "\?$") {
+        set req.url = regsub(req.url, "\?$", "");
+    }
+
+    # Remove has_js and Google Analytics __* cookies.
+    set req.http.Cookie = regsuball(req.http.Cookie, "(^|;\s*)(_[_a-z]+|has_js)=[^;]*", "");
+    # Remove a ";" prefix, if present.
+    set req.http.Cookie = regsub(req.http.Cookie, "^;\s*", "");
+    # remove newrelic
+    set req.http.Cookie = regsuball(req.http.Cookie, "NREUM=[^;]*", "");
+    # remove ASP
+    set req.http.Cookie = regsuball(req.http.Cookie, "ASP.NET_SessionId=[^;]*", "");
+
+    # Are there cookies left with only spaces or that are empty?
+    if (req.http.cookie ~ "^ *$") {
+        unset req.http.cookie;
+    }
+
+    # Normalize Accept-Encoding header
+    # straight from the manual: https://www.varnish-cache.org/docs/3.0/tutorial/vary.html
+    if (req.http.Accept-Encoding) {
+        if (req.url ~ "\.(jpg|png|gif|gz|tgz|bz2|tbz|mp3|ogg)$") {
+            # No point in compressing these
+            remove req.http.Accept-Encoding;
+        } elsif (req.http.Accept-Encoding ~ "gzip") {
+            set req.http.Accept-Encoding = "gzip";
+        } elsif (req.http.Accept-Encoding ~ "deflate") {
+            set req.http.Accept-Encoding = "deflate";
+        } else {
+            # unkown algorithm
+            remove req.http.Accept-Encoding;
+        }
+    }
+
+    # Symfony 2 ESI
+    set req.http.Surrogate-Capability = "abc=ESI/1.0";
+
+    if (req.http.Authorization) {
+        # Not cacheable by default
+        return (pass);
+    }
+
+    if(req.url ~ "/(ajaxcontroller|edit|selftest)" || req.url ~ "/(admin|login|monitor)" || req.url ~ "/wp-(login|admin)"){
+        # Not cacheable by default
+        return (pass);
+    }
+
+    return (lookup);
+}
+
+sub vcl_pipe {
+    # Note that only the first request to the backend will have
+    # X-Forwarded-For set.  If you use X-Forwarded-For and want to
+    # have it set for all requests, make sure to have:
+    # set bereq.http.connection = "close";
+    # here.  It is not set by default as it might break some broken web
+    # applications, like IIS with NTLM authentication.
+
+    set bereq.http.Connection = "Close";
+    return (pipe);
+}
+
+sub vcl_pass {
+    return (pass);
+}
+
+# The data on which the hashing will take place
+sub vcl_hash {
+    hash_data(req.url);
+
+    if (req.http.host) {
+        hash_data(req.http.host);
+    } else {
+        hash_data(server.ip);
+    }
+
+    # If the client supports compression, keep that in a different cache
+    if (req.http.Accept-Encoding) {
+        hash_data(req.http.Accept-Encoding);
+    }
+
+    if (req.http.Cookie) {
+        hash_data(req.http.Cookie);
+    }
+
+    return (hash);
+}
+
+sub vcl_hit {
+    # Allow purges
+    if (req.request == "PURGE") {
+        purge;
+        error 200 "Purged.";
+    }
+
+    return (deliver);
+}
+
+sub vcl_miss {
+    # Allow purges
+    if (req.request == "PURGE") {
+        purge;
+        error 200 "URL Purged.";
+    }
+
+    return (fetch);
+}
+
+
+sub vcl_fetch {
+
+    # remove cookie from statc assets
+    if (req.url ~ "\.(png|gif|jpg|swf|css|js)$") {
+        unset beresp.http.set-cookie;
+    }
+
+    if (beresp.http.X-Reverse-Proxy-TTL) {
+        C{
+            char *ttl;
+            ttl = VRT_GetHdr(sp, HDR_BERESP, "\024X-Reverse-Proxy-TTL:");
+            VRT_l_beresp_ttl(sp, atoi(ttl));
+        }C
+        unset beresp.http.X-Reverse-Proxy-TTL;
+    }
+
+    if (beresp.http.Surrogate-Control ~ "ESI/1.0") {
+        unset beresp.http.Surrogate-Control;
+        set beresp.do_esi = true;
+    }
+    if (req.url ~ "html$") {
+        set beresp.do_gzip = true;
+    }
+    # Varnish determined the object was not cacheable
+    if (beresp.ttl <= 0s) {
+        set beresp.http.X-Cacheable = "NO:Not Cacheable";
+
+    # You don't wish to cache content for logged in users
+    } elsif (req.http.Cookie ~ "(UserID|_session)") {
+        set beresp.http.X-Cacheable = "NO:Got Session";
+        return(hit_for_pass);
+
+    # You are respecting the Cache-Control=private header from the backend
+    } elsif (beresp.http.Cache-Control ~ "private") {
+        set beresp.http.X-Cacheable = "NO:Cache-Control=private";
+        return(hit_for_pass);
+
+    # Varnish determined the object was cacheable
+    } else {
+        set beresp.http.X-Cacheable = "YES";
+        set beresp.http.X-TTL = beresp.ttl;
+    }
+   return (deliver);
+}
+
+# The routine when we deliver the HTTP request to the user
+# Last chance to modify headers that are sent to the client
+sub vcl_deliver {
+    if (obj.hits > 0) {
+        set resp.http.X-Cache-Hits = obj.hits;
+        set resp.http.X-Cache = "cached";
+    } else {
+        set resp.http.X-Cache = "uncached";
+    }
+
+    # Remove some headers: PHP version
+    unset resp.http.X-Powered-By;
+
+    # Remove some headers: Apache version & OS
+    unset resp.http.Server;
+
+    return (deliver);
+}
+
