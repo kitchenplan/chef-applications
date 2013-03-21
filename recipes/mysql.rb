@@ -1,7 +1,5 @@
 include_recipe "applications::default"
 
-PASSWORD = node["mysql_root_password"]
-
 if platform?('mac_os_x')
     #http://solutions.treypiepmeier.com/2010/02/28/installing-mysql-on-snow-leopard-using-homebrew/
     require 'pathname'
@@ -19,7 +17,6 @@ if platform?('mac_os_x')
             end
         end
 
-    PASSWORD = node["mysql_root_password"]
     # The next two directories will be owned by WS_USER
     DATA_DIR = "/usr/local/var/mysql"
     PARENT_DATA_DIR = "/usr/local/var"
@@ -66,13 +63,28 @@ if platform?('mac_os_x')
         end
       end
     end
-    
-    execute "set the root password to the default" do
-      command "mysqladmin -uroot password #{PASSWORD}"
-      not_if "mysql -uroot -p#{PASSWORD} -e 'show databases'"
-    end
 elsif platform_family?('debian')
-
-    #Wachten tot thomas dit gedaan heeft.
     
+    apt_repository "percona" do
+        uri "http://repo.percona.com/apt"
+        distribution node["lsb"]["codename"]
+        components ["main"]
+        keyserver "keys.gnupg.net"
+        key "1C4CBDCDCD2EFD2A"
+        action :add
+        notifies :run, "execute[apt-get update]", :immediately
+    end
+
+    %w[percona-server-server-5.5 percona-server-client-5.5 percona-toolkit libmysqlclient-dev].each do |pkg|
+        package pkg do
+            action [:install, :upgrade]
+        end
+    end
+end
+
+PASSWORD = node["mysql_root_password"]
+
+execute "set the root password to the default" do
+    command "mysqladmin -uroot password #{PASSWORD}"
+    not_if "mysql -uroot -p#{PASSWORD} -e 'show databases'"
 end
