@@ -94,8 +94,11 @@ if platform?('mac_os_x')
     end
 elsif platform_family?('debian')
     
-    package "postgresql-9.1" do
-        action [:install, :upgrade]
+    #The postgresql-server-dev is needed for the easy_install psycopg2
+    %w[ postgresql-9.1 postgresql-server-dev-9.1 ].each do |pkg|
+        package pkg do
+            action [:install, :upgrade]
+        end
     end
     
     service "postgresql" do
