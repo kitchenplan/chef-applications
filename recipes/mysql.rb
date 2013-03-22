@@ -17,6 +17,7 @@ if platform?('mac_os_x')
             end
         end
 
+    PASSWORD = node["mysql_root_password"]
     # The next two directories will be owned by WS_USER
     DATA_DIR = "/usr/local/var/mysql"
     PARENT_DATA_DIR = "/usr/local/var"
@@ -63,7 +64,15 @@ if platform?('mac_os_x')
         end
       end
     end
+    
+    execute "set the root password to the default" do
+        command "mysqladmin -uroot password #{PASSWORD}"
+        not_if "mysql -uroot -p#{PASSWORD} -e 'show databases'"
+    end
 elsif platform_family?('debian')
+    
+    include_recipe "percona::client"
+    include_recipe "percona::server"
     
     apt_repository "percona" do
         uri "http://repo.percona.com/apt"
@@ -82,9 +91,4 @@ elsif platform_family?('debian')
     end
 end
 
-PASSWORD = node["mysql_root_password"]
 
-execute "set the root password to the default" do
-    command "mysqladmin -uroot password #{PASSWORD}"
-    not_if "mysql -uroot -p#{PASSWORD} -e 'show databases'"
-end

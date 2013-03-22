@@ -50,4 +50,11 @@ elsif platform_family?('debian')
         mode "0755"
     end
 
+    unless Chef::Config[:solo]
+        execute "set the runlevels" do
+            user "root"
+            command "sysv-rc-conf --level 2345 php5-fpm on"
+        end
+    end
+
 end
