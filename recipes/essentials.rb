@@ -1,4 +1,4 @@
-packages = %w[build-essential python-setuptools python-dev python-software-properties software-properties-common optipng jpegotim curl htop ntp ffmpeg2theora spamassassin jhead]
+packages = %w[build-essential python-setuptools python-dev python-software-properties software-properties-common optipng jpegoptim curl htop ntp ffmpeg2theora spamassassin jhead]
 
 packages.each do |pkg|
     package pkg do
