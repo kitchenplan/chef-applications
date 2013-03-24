@@ -1,0 +1,22 @@
+#!/bin/sh
+export PATH=$PATH:/usr/X11R6/bin/
+case "$1" in
+  start)
+	(/usr/bin/Xvfb :2 -auth /opt/kDeploy/xvfb.hosts  &)
+  ;;
+
+  restart|reload|force-reload)
+  	$0 stop
+	$0 start
+  ;;
+
+  stop)
+        killall Xvfb
+ ;;
+ 
+ *)
+ 	echo "Usage: /etc/init.d/Xvfb {start|stop|restart|reload|force-reload}"
+	 exit 1
+ ;;
+esac
+exit 0
