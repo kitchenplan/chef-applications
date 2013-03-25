@@ -10,11 +10,6 @@ execute "configure kernel parameters" do
     command "sysctl -p"
 end
    
-execute "set user limits" do
-    user "root"
-    command "ulimit -n 100000"
-end   
- 
 template "/etc/security/limits.conf" do
     source "security.limits.conf.erb"
     owner "root"
