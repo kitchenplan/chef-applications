@@ -6,8 +6,6 @@ if platform?("mac_os_x")
         owner node['current_user']
     end
 elsif platform_family?("debian")
-    include_recipe "apt"
-
     package "nautilus-dropbox" do
         action [:install, :upgrade]
     end
