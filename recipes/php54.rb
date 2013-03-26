@@ -28,9 +28,6 @@ if platform?('mac_os_x')
     end
 elsif platform_family?('debian')
     packages = %w[ php5-mysqlnd php5-mcrypt php-apc php5-imagick php5-cli php5-gd php5-memcached php5-curl php5-intl php5-dev php-pear libmagick++-dev ]
-    unless Chef::Config[:solo]
-        packages << php5-fpm
-    end
     
     packages.each do |pkg|
         package pkg do
