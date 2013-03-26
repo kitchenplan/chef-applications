@@ -50,7 +50,7 @@ end
 
 if platform_family?('debian')
 
-    %w[ apache2 apache2-mpm-worker apache2-threaded-dev libapache2-mod-rpaf libapache2-mod-fastcgi libapache2-mod-jk ].each do |pkg|
+    %w[ apache2 apache2-mpm-worker apache2-threaded-dev libapache2-mod-rpaf libapache2-mod-php5 libapache2-mod-jk ].each do |pkg|
         package pkg do
             action [:install, :upgrade]
         end
