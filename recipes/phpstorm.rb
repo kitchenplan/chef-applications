@@ -16,7 +16,7 @@ elsif platform_family?('debian')
     
     bash "install phpstorm" do
         user "root"
-        cwd "#{Chef::Config[:file_cache_path]}"
+        cwd Chef::Config[:file_cache_path]
         code <<-EOH
             tar -zxf #{phpstorm_version}.tar.gz
             mkdir -p /home/#{user}/#{phpstorm_version}
