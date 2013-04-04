@@ -41,7 +41,7 @@ if platform?('mac_os_x')
         end
 
         execute "create the database" do
-            command "/usr/local/bin/initdb -U postgres --encoding=utf8 --locale=en_US /usr/local/var/postgres"
+            command "/usr/local/bin/initdb -U postgres --encoding=utf8 --locale=en_US /usr/local/var/postgres "
             user node['current_user']
         end
 
@@ -76,12 +76,12 @@ if platform?('mac_os_x')
         end
 
         execute "create the database" do
-            command "/usr/local/bin/createdb -U postgres"
+            command "/usr/local/bin/createdb -U postgres -h /var/run/postgresql/"
             user node['current_user']
         end
 
         execute "create the postgres '#{node['current_user']}' superuser" do
-            command "/usr/local/bin/createuser -U postgres --superuser #{node['current_user']}"
+            command "/usr/local/bin/createuser -U postgres -h /var/run/postgresql/ --superuser #{node['current_user']}"
             user node['current_user']
         end
     end
@@ -96,7 +96,7 @@ if platform?('mac_os_x')
                 raise "postgres is not running: " << e
             end
             s.close
-            `sudo -u #{node['current_user']} /usr/local/bin/psql -U postgres< /dev/null`
+            `sudo -u #{node['current_user']} /usr/local/bin/psql -U postgres -h /var/run/postgresql/ < /dev/null`
             if $?.to_i != 0
                 raise "I couldn't invoke postgres!"
             end
