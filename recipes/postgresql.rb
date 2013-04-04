@@ -127,17 +127,17 @@ elsif platform_family?('debian')
 end
 
 execute "create the postgres smlscript superuser" do
-    command "/usr/local/bin/psql -d template1 -c 'create user smlscript;'"
+    command "/usr/local/bin/psql -d template1 -h /var/run/postgresql/ -c 'create user smlscript;'"
     user postgresuser
-    not_if "/usr/local/bin/psql -d template1 -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
+    not_if "/usr/local/bin/psql -d template1 -h /var/run/postgresql/ -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
 end
 
 execute "create the postgres '#{node['current_user']}' superuser" do
-    command "/usr/local/bin/psql -d template1 -c \"alter user smlscript with password 'sml';\""
+    command "/usr/local/bin/psql -d template1 -h /var/run/postgresql/ -c \"alter user smlscript with password 'sml';\""
     user postgresuser
 end
 
 execute "create the postgres '#{node['current_user']}' superuser" do
-    command "/usr/local/bin/psql -d template1 -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
+    command "/usr/local/bin/psql -d template1 -h /var/run/postgresql/ -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
     user postgresuser
 end
