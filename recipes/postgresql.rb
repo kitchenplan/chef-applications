@@ -36,6 +36,12 @@ if platform?('mac_os_x')
             recursive true
         end
 
+        # create config dir
+        directory "/usr/local/var/postgres/" do
+          recursive :true
+          action :create
+        end
+
         template "/usr/local/var/postgres/postgresql.conf" do
             source "postgresql.conf.erb"
             owner node['current_user']
