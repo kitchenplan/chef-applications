@@ -33,7 +33,7 @@ if platform?('mac_os_x')
         # blow away default image's data directory
         directory "/usr/local/var/postgres" do
             action :delete
-            recursive true
+            recursive :true
         end
 
         # create config dir
