@@ -20,6 +20,16 @@ if platform?('mac_os_x')
             end
         end
 
+        # increase shared memory
+        include_recipe "applications::increase_shared_memory"
+
+        # create socket-dir
+        directory "/var/run/postgresql/" do
+          owner "root"
+          mode 0777
+          action :create
+        end
+
         # blow away default image's data directory
         directory "/usr/local/var/postgres" do
             action :delete
@@ -47,12 +57,12 @@ if platform?('mac_os_x')
             user node['current_user']
         end
 
-    #    template "/usr/local/var/postgres/postgresql.conf" do
-    #        source "postgresql.conf.erb"
-    #        owner node['current_user']
-    #        group "staff"
-    #        mode "0600"
-    #    end
+        template "/usr/local/var/postgres/postgresql.conf" do
+            source "postgresql.conf.erb"
+            owner node['current_user']
+            group "staff"
+            mode "0600"
+        end
 
         execute "start the daemon" do
             command %'launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist'
@@ -75,7 +85,7 @@ if platform?('mac_os_x')
             user node['current_user']
         end
     end
-    
+
     ruby_block "test to see if postgres is running" do
         block do
             require 'socket'
@@ -93,14 +103,14 @@ if platform?('mac_os_x')
         end
     end
 elsif platform_family?('debian')
-    
+
     #The postgresql-server-dev is needed for the easy_install psycopg2
     %w[ postgresql-9.1 postgresql-server-dev-9.1 ].each do |pkg|
         package pkg do
             action [:install, :upgrade]
         end
     end
-    
+
     service "postgresql" do
         supports [:restart]
         action :enable
@@ -113,21 +123,21 @@ elsif platform_family?('debian')
         mode "0640"
         notifies :restart, "service[postgresql]"
     end
-    
+
 end
 
 execute "create the postgres smlscript superuser" do
-    command "psql -d template1 -c 'create user smlscript;'"
+    command "/usr/local/bin/psql -d template1 -c 'create user smlscript;'"
     user postgresuser
-    not_if "psql -d template1 -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
+    not_if "/usr/local/bin/psql -d template1 -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
 end
 
 execute "create the postgres '#{node['current_user']}' superuser" do
-    command "psql -d template1 -c \"alter user smlscript with password 'sml';\""
+    command "/usr/local/bin/psql -d template1 -c \"alter user smlscript with password 'sml';\""
     user postgresuser
 end
 
 execute "create the postgres '#{node['current_user']}' superuser" do
-    command "psql -d template1 -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
+    command "/usr/local/bin/psql -d template1 -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
     user postgresuser
 end
