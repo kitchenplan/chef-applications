@@ -36,6 +36,13 @@ if platform?('mac_os_x')
             recursive true
         end
 
+        template "/usr/local/var/postgres/postgresql.conf" do
+            source "postgresql.conf.erb"
+            owner node['current_user']
+            group "staff"
+            mode "0600"
+        end
+
         package "postgresql" do
             action [:install, :upgrade]
         end
@@ -55,13 +62,6 @@ if platform?('mac_os_x')
         execute "copy over the plist" do
             command %'cp /usr/local/Cellar/postgresql/9.*/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/'
             user node['current_user']
-        end
-
-        template "/usr/local/var/postgres/postgresql.conf" do
-            source "postgresql.conf.erb"
-            owner node['current_user']
-            group "staff"
-            mode "0600"
         end
 
         execute "start the daemon" do
