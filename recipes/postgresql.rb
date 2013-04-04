@@ -37,18 +37,18 @@ if platform?('mac_os_x')
         end
 
         # create config dir
-        directory "/usr/local/var/postgres/" do
-          owner "root"
-          action :create
-          recursive true
-        end
-
-        template "/usr/local/var/postgres/postgresql.conf" do
-            source "postgresql.conf.erb"
-            owner node['current_user']
-            group "staff"
-            mode "0600"
-        end
+ #       directory "/usr/local/var/postgres/" do
+ #         owner "root"
+ #         action :create
+ #         recursive true
+ #       end
+#
+ #       template "/usr/local/var/postgres/postgresql.conf" do
+ #           source "postgresql.conf.erb"
+ #           owner node['current_user']
+ #           group "staff"
+ #           mode "0600"
+ #       end
 
         package "postgresql" do
             action [:install, :upgrade]
