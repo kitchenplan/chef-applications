@@ -30,14 +30,14 @@ if platform?('mac_os_x')
           action :create
         end
 
+        package "postgresql" do
+            action [:install, :upgrade]
+        end
+
         # blow away default image's data directory
         directory "/usr/local/var/postgres" do
             action :delete
             recursive true
-        end
-
-        package "postgresql" do
-            action [:install, :upgrade]
         end
 
         execute "create the database" do
