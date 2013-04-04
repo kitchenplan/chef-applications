@@ -40,11 +40,9 @@ if platform?('mac_os_x')
             action [:install, :upgrade]
         end
 
-        # create config dir
-        directory "/usr/local/var/postgres/" do
-           owner "root"
-           action :create
-           recursive true
+        execute "create the database" do
+            command "/usr/local/bin/initdb -U postgres --encoding=utf8 --locale=en_US /usr/local/var/postgres"
+            user node['current_user']
         end
 
         template "/usr/local/var/postgres/postgresql.conf" do
@@ -52,11 +50,6 @@ if platform?('mac_os_x')
             owner node['current_user']
             group "staff"
             mode "0600"
-        end
-
-        execute "create the database" do
-            command "/usr/local/bin/initdb -U postgres --encoding=utf8 --locale=en_US /usr/local/var/postgres"
-            user node['current_user']
         end
 
         launch_agents_path = File.expand_path('.', File.join('~','Library', 'LaunchAgents'))
