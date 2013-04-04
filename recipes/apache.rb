@@ -1,5 +1,4 @@
 include_recipe "applications::default"
-include_recipe "apache2::default"
 
 if platform?('mac_os_x')
     template "/etc/apache2/other/kdeploy.conf" do
@@ -15,6 +14,7 @@ if platform?('mac_os_x')
       )
     end
 elsif platform_family?('debian')
+    include_recipe "apache2::default"
     template "/etc/apache2/conf.d/kdeploy.conf" do
         source "apache_kdeploy_debian.erb"
         owner "root"
