@@ -14,7 +14,7 @@ if platform?('mac_os_x')
     package_id "com.apple.pkg.JavaForMacOSX107"
   end
 elsif platform_family?('debian')
-  package "openjdk-7-jdk" do
+  package "openjdk-6-jdk" do
     action [:install, :upgrade]
   end
 end
