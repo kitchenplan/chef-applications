@@ -9,8 +9,10 @@ if platform?("mac_os_x")
         package_id "com.vagrant.vagrant"
     end
 elsif platform_family?("debian")
-    package "vagrant" do
-        action [:install, :upgrade]
+    #nfs-kernel-server is needed for the shared folders
+    %w[ vagrant nfs-kernel-server ].each do |pkg|
+        package pkg do
+            action [:install, :upgrade]
+        end
     end
 end
-
