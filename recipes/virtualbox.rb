@@ -7,7 +7,9 @@ if platform?("mac_os_x")
 		package_id "org.virtualbox.pkg.virtualbox"
     end
 elsif platform_family?("debian")
-    package "virtualbox" do
-        action [:install, :upgrade]
+    %w[ virtualbox virtualbox-guest-additions ].each do |pkg|
+        package pkg do
+            action [:install, :upgrade]
+        end
     end
 end
