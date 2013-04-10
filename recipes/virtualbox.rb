@@ -7,8 +7,7 @@ if platform?("mac_os_x")
 		package_id "org.virtualbox.pkg.virtualbox"
     end
 elsif platform_family?("debian")
-    #nfs-kernel-server is needed for the shared folders
-    %w[ virtualbox virtualbox-guest-additions nfs-kernel-server ].each do |pkg|
+    %w[ virtualbox virtualbox-guest-additions ].each do |pkg|
         package pkg do
             action [:install, :upgrade]
         end
