@@ -23,6 +23,6 @@ elsif platform_family?("debian")
 
     dpkg_package "vagrant" do
         source "#{Chef::Config[:file_cache_path]}/vagrant.deb"
-	action :install
+        action :install
     end
 end

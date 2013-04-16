@@ -12,7 +12,7 @@ elsif platform_family?("debian")
         distribution node["lsb"]["codename"]
         components ["contrib"]
         keyserver "keys.gnupg.net"
-	key "54422A4B98AB5139"
+        key "54422A4B98AB5139"
         action :add
         notifies :run, "execute[apt-get update]", :immediately
     end
