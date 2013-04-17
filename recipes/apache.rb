@@ -79,7 +79,6 @@ if platform_family?('debian')
     end
 
     apache_module "actions"
-    apache_module "fastcgi"
     apache_module "rewrite"
     apache_module "ssl"
     
