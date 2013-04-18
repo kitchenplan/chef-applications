@@ -1,10 +1,5 @@
 include_recipe "applications::default"
 
-postgresuser = value_for_platform(
-    ["ubuntu"] => { "default" => "postgres"},
-    "default" => node['current_user']
-)
-
 if platform?('mac_os_x')
     if `sudo -u #{node['current_user']} brew list -1 | grep ^postgresql$`.empty?
         ["homebrew.mxcl.postgresql.plist", "org.postgresql.postgres.plist" ].each do |plist|
@@ -126,18 +121,28 @@ elsif platform_family?('debian')
 
 end
 
+postgresuser = value_for_platform(
+    ["ubuntu"] => { "default" => "postgres"},
+    "default" => node['current_user']
+)
+
+postgrescmd = value_for_platform(
+    ["ubuntu"] => { "default" => "psql"},
+    "default" => "/usr/local/bin/psql"
+)
+
 execute "create the postgres smlscript superuser" do
-    command "/usr/local/bin/psql -d template1 -h /var/run/postgresql/ -c 'create user smlscript;'"
+    command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c 'create user smlscript;'"
     user postgresuser
-    not_if "/usr/local/bin/psql -d template1 -h /var/run/postgresql/ -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
+    not_if "#{postgrescmd} -d template1 -h /var/run/postgresql/ -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
 end
 
 execute "create the postgres '#{node['current_user']}' superuser" do
-    command "/usr/local/bin/psql -d template1 -h /var/run/postgresql/ -c \"alter user smlscript with password 'sml';\""
+    command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c \"alter user smlscript with password 'sml';\""
     user postgresuser
 end
 
 execute "create the postgres '#{node['current_user']}' superuser" do
-    command "/usr/local/bin/psql -d template1 -h /var/run/postgresql/ -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
+    command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
     user postgresuser
 end
