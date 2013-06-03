@@ -1,6 +1,6 @@
 if platform?('mac_os_x')
     dmg_package "PhpStorm" do
-        source "http://download.jetbrains.com/webide/PhpStorm-5.0.4.dmg"
+        source "http://download.jetbrains.com/webide/PhpStorm-6.0.2.dmg"
         action :install
         owner node['current_user']
     end
