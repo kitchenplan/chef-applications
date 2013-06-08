@@ -1,3 +1,10 @@
+directory "/etc/sysctl.d/" do
+  owner "root"
+  mode "0777"
+  action :create
+  recursive true
+end
+
 template "/etc/sysctl.d/50-tuning.conf" do
     source "sysctltuning.erb"
     owner "root"
