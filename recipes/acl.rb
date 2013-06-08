@@ -16,8 +16,11 @@ script "configure tmpfs" do
     user "root"
     cwd "/etc"
     code <<-EOH
+       mv /tmp /tmpold
+       mkdit /tmp
        echo "tmpfs /tmp tmpfs defaults,nosuid,noatime,nodiratime 0 0" >> /etc/fstab
        mount -a
+       mv /tmpold/* /tmp/
     EOH
     not_if "cat /etc/fstab | grep tmpfs > /dev/null"
 end
