@@ -7,8 +7,7 @@ end
 
 template "/etc/sysctl.d/50-tuning.conf" do
     source "sysctltuning.erb"
-    owner "root"
-    group "root"
+    owner node['current_user']
     mode "0644"
 end
 
