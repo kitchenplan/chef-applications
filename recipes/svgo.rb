@@ -1,6 +1,7 @@
 include_recipe "applications::nodejs"
 
 execute "Install svgo with npm" do
-      command "npm install -g svgo"
+      command "sudo npm install -g svgo"
+      user "root"
 end
 
