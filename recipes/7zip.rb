@@ -1,3 +1,3 @@
-package "7z" do
+package "p7zip" do
   action [:install, :upgrade]
 end
