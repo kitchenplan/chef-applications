@@ -1,3 +1,3 @@
 applications_package "Codekit" do
-  source  "http://incident57.com/codekit/files/codekit-8283.zip"
+  source  "http://incident57.com/codekit/files/codekit-8300.zip"
 end
