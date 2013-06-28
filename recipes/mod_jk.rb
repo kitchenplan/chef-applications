@@ -23,3 +23,11 @@ unless File.exists?("/usr/libexec/apache2/mod_jk.so")
   end
 
 end
+
+directory "/usr/logs" do
+    owner "root"
+    group "root"
+    mode 0777
+    action :create
+    recursive true
+end
