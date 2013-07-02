@@ -8,7 +8,7 @@ if platform?('mac_os_x')
     package "php54" do |variable|
         options "--with-mysql --with-pgsql"
     end
-
+    
     %w[ php54-apc php54-memcached php54-inclued php54-http php54-xdebug php54-intl php54-yaml php54-imagick php54-solr php54-twig php54-mcrypt].each do |pkg|
         package pkg do
             action [:install, :upgrade]
