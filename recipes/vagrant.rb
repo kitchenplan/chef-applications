@@ -2,7 +2,7 @@ include_recipe "applications::virtualbox"
 
 if platform?("mac_os_x")
     dmg_package "Vagrant" do
-        source "http://files.vagrantup.com/packages/194948999371e9aee391d13845a0bdeb27e51ac0/Vagrant.dmg"
+        source "http://files.vagrantup.com/packages/7e400d00a3c5a0fdf2809c8b5001a035415a607b/Vagrant-1.2.2.dmg"
         action :install
         type "pkg"
         owner node['current_user']
@@ -17,7 +17,7 @@ elsif platform_family?("debian")
     end
 
     remote_file "#{Chef::Config[:file_cache_path]}/vagrant.deb" do
-        source "http://files.vagrantup.com/packages/64e360814c3ad960d810456add977fd4c7d47ce6/vagrant_x86_64.deb"
+        source "http://files.vagrantup.com/packages/7e400d00a3c5a0fdf2809c8b5001a035415a607b/vagrant_1.2.2_x86_64.deb"
         mode 0644
     end
 
