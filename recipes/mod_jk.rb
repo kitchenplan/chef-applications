@@ -10,11 +10,14 @@ unless File.exists?("/usr/libexec/apache2/mod_jk.so")
     user WS_USER
   end
 
+  link "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain" do
+    to "/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.8.xctoolchain"
+  end
+
   bash "install_program" do
     user "root"
     cwd "#{Chef::Config[:file_cache_path]}/tomcat-connectors-1.2.37-src/native"
     code <<-EOH
-        ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain /Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.8.xctoolchain
         ./configure --with-apxs=/usr/sbin/apxs
         make
         make install
