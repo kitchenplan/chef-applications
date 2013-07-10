@@ -1,5 +1,5 @@
 remote_file "#{Chef::Config[:file_cache_path]}/install_flash_player_osx.dmg" do
-    source "http://fpdownload.macromedia.com/get/flashplayer/pdc/11.6.602.171/install_flash_player_osx.dmg"
+    source "http://fpdownload.macromedia.com/get/flashplayer/pdc/11.8.800.94/install_flash_player_osx.dmg"
     owner node['current_user']
     not_if "pkgutil --packages | grep Flash"
 end
