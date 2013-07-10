@@ -12,7 +12,7 @@ unless File.exists?("/usr/libexec/apache2/mod_jk.so")
 
   link "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain" do
     to "/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.8.xctoolchain"
-    only_if "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain"
+    only_if "test -r /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain"
   end
 
   bash "install_program" do
