@@ -1,3 +1,3 @@
 applications_package "Flux" do
-  source  "https://herf.org/flux/Flux.zip"
+  source  "https://justgetflux.com/mac/Flux.zip"
 end
