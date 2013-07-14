@@ -1,3 +1,4 @@
-applications_package "Bartender" do
-  source  "http://www.macbartender.com/Demo/Bartender.zip"
+include_recipe "applications::homebrewcask"
+applications_cask "bartender" do
+  appname "Bartender"
 end
