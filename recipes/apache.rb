@@ -13,6 +13,14 @@ if platform?('mac_os_x')
         :user => node['current_user']
       )
     end
+
+    template "/etc/apache2/httpd.conf" do
+        source "httpd.conf.erb"
+        owner "root"
+        mode "0755"
+        notifies :restart, "service[apache2]"
+    end
+
 elsif platform_family?('debian')
     include_recipe "apache2::default"
     template "/etc/apache2/conf.d/kdeploy.conf" do
@@ -63,14 +71,14 @@ if platform_family?('debian')
         mode "0755"
         notifies :restart, "service[apache2]"
     end
-    
+
     template "/etc/apache2/conf/projects.d/namevirtualhosts" do
         source "apache_namevirtualhosts.erb"
         owner "root"
         mode "0644"
         notifies :restart, "service[apache2]"
     end
-    
+
     template "/etc/apache2/apache2.conf" do
         source "apache2.conf.erb"
         owner "root"
@@ -81,7 +89,7 @@ if platform_family?('debian')
     apache_module "actions"
     apache_module "rewrite"
     apache_module "ssl"
-    
+
     bash "default" do
         user "root"
         code <<-EOH
@@ -89,5 +97,5 @@ if platform_family?('debian')
         EOH
         only_if File.exists?("/etc/apache2/sites-enabled/000-default")
     end
-    
+
 end
