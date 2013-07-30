@@ -1,5 +1,17 @@
 include_recipe "applications::default"
 
+
+postgresuser = value_for_platform(
+    ["ubuntu"] => { "default" => "postgres"},
+    "default" => node['current_user']
+)
+
+postgrescmd = value_for_platform(
+    ["ubuntu"] => { "default" => "psql"},
+    "default" => "/usr/local/bin/psql"
+)
+
+
 if platform?('mac_os_x')
     if `sudo -u #{node['current_user']} brew list -1 | grep ^postgresql$`.empty?
         ["homebrew.mxcl.postgresql.plist", "org.postgresql.postgres.plist" ].each do |plist|
@@ -18,13 +30,6 @@ if platform?('mac_os_x')
         # increase shared memory
         include_recipe "applications::increase_shared_memory"
 
-        # create socket-dir
-        directory "/var/run/postgresql/" do
-          owner "root"
-          mode 0777
-          action :create
-        end
-
         package "postgresql" do
             action [:install, :upgrade]
         end
@@ -36,7 +41,7 @@ if platform?('mac_os_x')
         end
 
         execute "create the database" do
-            command "/usr/local/bin/initdb -U postgres --encoding=utf8 --locale=en_US /usr/local/var/postgres "
+            command "/usr/local/bin/pg_ctl initdb -D /usr/local/var/postgres  -o '--encoding=utf8 --locale=en_US' -U postgres"
             user node['current_user']
         end
 
@@ -71,12 +76,12 @@ if platform?('mac_os_x')
         end
 
         execute "create the database" do
-            command "/usr/local/bin/createdb -U postgres -h /var/run/postgresql/"
+            command "/usr/local/bin/createdb -h /tmp/"
             user node['current_user']
         end
 
         execute "create the postgres '#{node['current_user']}' superuser" do
-            command "/usr/local/bin/createuser -U postgres -h /var/run/postgresql/ --superuser #{node['current_user']}"
+            command "/usr/local/bin/createuser -h /tmp/ --superuser #{node['current_user']}"
             user node['current_user']
         end
     end
@@ -91,11 +96,27 @@ if platform?('mac_os_x')
                 raise "postgres is not running: " << e
             end
             s.close
-            `sudo -u #{node['current_user']} /usr/local/bin/psql -U postgres -h /var/run/postgresql/ < /dev/null`
+            `sudo -u #{node['current_user']} /usr/local/bin/psql -U postgres -h /tmp/ < /dev/null`
             if $?.to_i != 0
                 raise "I couldn't invoke postgres!"
             end
         end
+    end
+
+    execute "create the postgres smlscript superuser" do
+        command "#{postgrescmd} -d template1 -h /tmp/ -c 'create user smlscript;'"
+        user postgresuser
+        not_if "#{postgrescmd} -d template1 -h /tmp/ -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
+    end
+
+    execute "create the postgres '#{node['current_user']}' superuser" do
+        command "#{postgrescmd} -d template1 -h /mp/ -c \"alter user smlscript with password 'sml';\""
+        user postgresuser
+    end
+
+    execute "create the postgres '#{node['current_user']}' superuser" do
+        command "#{postgrescmd} -d template1 -h /tmp/ -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
+        user postgresuser
     end
 elsif platform_family?('debian')
 
@@ -119,30 +140,23 @@ elsif platform_family?('debian')
         notifies :restart, "service[postgresql]"
     end
 
+    execute "create the postgres smlscript superuser" do
+        command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c 'create user smlscript;'"
+        user postgresuser
+        not_if "#{postgrescmd} -d template1 -h /var/run/postgresql/ -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
+    end
+
+    execute "create the postgres '#{node['current_user']}' superuser" do
+        command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c \"alter user smlscript with password 'sml';\""
+        user postgresuser
+    end
+
+    execute "create the postgres '#{node['current_user']}' superuser" do
+        command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
+        user postgresuser
+    end
 end
 
-postgresuser = value_for_platform(
-    ["ubuntu"] => { "default" => "postgres"},
-    "default" => node['current_user']
-)
 
-postgrescmd = value_for_platform(
-    ["ubuntu"] => { "default" => "psql"},
-    "default" => "/usr/local/bin/psql"
-)
 
-execute "create the postgres smlscript superuser" do
-    command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c 'create user smlscript;'"
-    user postgresuser
-    not_if "#{postgrescmd} -d template1 -h /var/run/postgresql/ -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
-end
 
-execute "create the postgres '#{node['current_user']}' superuser" do
-    command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c \"alter user smlscript with password 'sml';\""
-    user postgresuser
-end
-
-execute "create the postgres '#{node['current_user']}' superuser" do
-    command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
-    user postgresuser
-end
