@@ -5,13 +5,11 @@ action :install do
         mode 00755
         recursive true
     end
-    
-    application = new_resource.appname || new_resource.name
 
     execute "installing #{new_resource.name} via cask" do
         command "/usr/local/bin/brew cask install --appdir=/Applications #{new_resource.name}"
         user node['current_user']
-        not_if { ::File.exists?("/Applications/#{application}.app") }
+        not_if "brew cask list | grep #{new_resource.name}"
     end
 
     new_resource.updated_by_last_action(true)

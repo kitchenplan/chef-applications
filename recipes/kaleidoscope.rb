@@ -1,4 +1,2 @@
-applications_package "Kaleidoscope" do
-  source  "https://updates.blackpixel.com/latest?app=ks"
-end
-
+include_recipe "applications::homebrewcask"
+applications_cask "kaleidoscope"

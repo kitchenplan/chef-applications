@@ -1,10 +1,6 @@
 if platform?("mac_os_x")
-    dmg_package "Dropbox" do
-        volumes_dir "Dropbox Installer"
-        source "https://www.dropbox.com/download?plat=mac"
-        action :install
-        owner node['current_user']
-    end
+    include_recipe "applications::homebrewcask"
+    applications_cask "dropbox"
 elsif platform_family?("debian")
     package "nautilus-dropbox" do
         action [:install, :upgrade]

@@ -1,10 +1,6 @@
 if platform?('mac_os_x')
-  dmg_package "Google Chrome" do
-    dmg_name "googlechrome"
-    source "https://dl-ssl.google.com/chrome/mac/stable/GGRM/googlechrome.dmg"
-    action :install
-    owner node['current_user']
-  end
+  include_recipe "applications::homebrewcask"
+  applications_cask "google-chrome"
 elsif platform_family?('debian')
   include_recipe "apt"
   apt_repository "chrome" do

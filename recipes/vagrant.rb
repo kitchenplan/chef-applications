@@ -1,13 +1,8 @@
 include_recipe "applications::virtualbox"
 
 if platform?("mac_os_x")
-    dmg_package "Vagrant" do
-        source "http://files.vagrantup.com/packages/7e400d00a3c5a0fdf2809c8b5001a035415a607b/Vagrant-1.2.2.dmg"
-        action :install
-        type "pkg"
-        owner node['current_user']
-        package_id "com.vagrant.vagrant"
-    end
+    include_recipe "applications::homebrewcask"
+    applications_cask "vagrant"
 elsif platform_family?("debian")
     #nfs-kernel-server is needed for the shared folders
     %w[ nfs-kernel-server ].each do |pkg|

@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "evernote"
+applications_cask "transmit"

@@ -1,11 +1,6 @@
 if platform?("mac_os_x")
-    dmg_package "VirtualBox" do
-        source "http://download.virtualbox.org/virtualbox/4.2.16/VirtualBox-4.2.16-86992-OSX.dmg"
-        action :install
-        owner node['current_user']
-        type "pkg"
-        package_id "org.virtualbox.pkg.virtualbox"
-    end
+    include_recipe "applications::homebrewcask"
+    applications_cask "virtualbox"
 elsif platform_family?("debian")
     apt_repository "virtualbox" do
         uri "http://download.virtualbox.org/virtualbox/debian"

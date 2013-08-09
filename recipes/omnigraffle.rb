@@ -1,10 +1,5 @@
-dmg_package "OmniGraffle Professional 5" do
-    volumes_dir "OmniGrafflePro"
-    accept_eula true
-    source "http://www.omnigroup.com/download/latest/omnigrafflepro"
-    action :install
-    owner node['current_user']
-end
+include_recipe "applications::homebrewcask"
+applications_cask "omni-graffle"
 
 gtemplate = "#{node['etc']['passwd'][node['current_user']]['dir']}/Library/Application Support/OmniGraffle/Templates/Konigi-UX-Template.gtemplate"
 unless File.exists?(gtemplate)
