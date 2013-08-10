@@ -18,7 +18,7 @@ include_recipe 'applications::psycopg2'
 include_recipe 'applications::mysql'
 include_recipe 'applications::mysql_python'
 include_recipe 'applications::apache'
-include_recipe 'applications::php54'
+include_recipe "applications::#{node['kdeploydeps']['php']}"
 
 #Packages required for the debian family
 if platform_family?('debian')
