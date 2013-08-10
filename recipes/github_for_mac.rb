@@ -1,4 +1,2 @@
-applications_package "GitHub" do
-  source  "https://central.github.com/mac/latest"
-end
-
+include_recipe "applications::homebrewcask"
+applications_cask "github"
