@@ -6,13 +6,14 @@ if platform?('mac_os_x')
     package_id "com.oracle.jre"
   end
 
-  dmg_package "JavaForOSX" do
-    source "http://support.apple.com/downloads/DL1572/en_US/"
-    volumes_dir "Java for OS X 2013-004"
-    action :install
-    type "pkg"
-    package_id "com.apple.pkg.JavaForMacOSX107"
-  end
+# Does no longer
+#  dmg_package "JavaForOSX" do
+#    source "http://support.apple.com/downloads/DL1572/en_US/"
+#    volumes_dir "Java for OS X 2013-004"
+#    action :install
+#    type "pkg"
+#    package_id "com.apple.pkg.JavaForMacOSX107"
+#  end
 elsif platform_family?('debian')
   package "openjdk-6-jdk" do
     action [:install, :upgrade]
