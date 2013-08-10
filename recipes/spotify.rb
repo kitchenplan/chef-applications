@@ -1,4 +1,2 @@
-dmg_package 'Spotify' do
-    source 'http://download.spotify.com/Spotify.dmg'
-    action :install
-end
+include_recipe "applications::homebrewcask"
+applications_cask "spotify"
