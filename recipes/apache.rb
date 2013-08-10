@@ -13,14 +13,6 @@ if platform?('mac_os_x')
         :user => node['current_user']
       )
     end
-
-    template "/etc/apache2/httpd.conf" do
-        source "httpd.conf.erb"
-        owner "root"
-        mode "0755"
-        notifies :restart, "service[apache2]"
-    end
-
 elsif platform_family?('debian')
     include_recipe "apache2::default"
     template "/etc/apache2/conf.d/kdeploy.conf" do
