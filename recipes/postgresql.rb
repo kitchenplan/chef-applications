@@ -84,7 +84,7 @@ if platform?('mac_os_x')
                 raise "postgres is not running: " << e
             end
             s.close
-            `sudo -u #{node['current_user']} /usr/local/bin/psql -U postgres -h /var/run/postgresql/ < /dev/null`
+            `sudo -u #{node['current_user']} /usr/local/bin/psql -U postgres -h /tmp/ < /dev/null`
             if $?.to_i != 0
                 raise "I couldn't invoke postgres!"
             end
