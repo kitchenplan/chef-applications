@@ -18,13 +18,6 @@ if platform?('mac_os_x')
         # increase shared memory
         include_recipe "applications::increase_shared_memory"
 
-        # create socket-dir
-        directory "/var/run/postgresql/" do
-          owner "root"
-          mode 0777
-          action :create
-        end
-
         package "postgresql" do
             action [:install, :upgrade]
         end
@@ -71,12 +64,12 @@ if platform?('mac_os_x')
         end
 
         execute "create the database" do
-            command "/usr/local/bin/createdb -U postgres -h /var/run/postgresql/"
+            command "/usr/local/bin/createdb -U postgres -h /tmp/"
             user node['current_user']
         end
 
         execute "create the postgres '#{node['current_user']}' superuser" do
-            command "/usr/local/bin/createuser -U postgres -h /var/run/postgresql/ --superuser #{node['current_user']}"
+            command "/usr/local/bin/createuser -U postgres -h /tmp/ --superuser #{node['current_user']}"
             user node['current_user']
         end
     end
@@ -131,18 +124,23 @@ postgrescmd = value_for_platform(
     "default" => "/usr/local/bin/psql"
 )
 
+postgressocket = value_for_platform(
+    ["ubuntu"] => { "default" => "/var/run/postgresql/"},
+    "default" => "/tmp/"
+)
+
 execute "create the postgres smlscript superuser" do
-    command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c 'create user smlscript;'"
+    command "#{postgrescmd} -d template1 -h #{postgressocket} -c 'create user smlscript;'"
     user postgresuser
-    not_if "#{postgrescmd} -d template1 -h /var/run/postgresql/ -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
+    not_if "#{postgrescmd} -d template1 -h #{postgressocket} -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
 end
 
 execute "create the postgres '#{node['current_user']}' superuser" do
-    command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c \"alter user smlscript with password 'sml';\""
+    command "#{postgrescmd} -d template1 -h #{postgressocket} -c \"alter user smlscript with password 'sml';\""
     user postgresuser
 end
 
 execute "create the postgres '#{node['current_user']}' superuser" do
-    command "#{postgrescmd} -d template1 -h /var/run/postgresql/ -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
+    command "#{postgrescmd} -d template1 -h #{postgressocket} -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
     user postgresuser
 end
