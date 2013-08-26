@@ -10,10 +10,8 @@ unless File.exists?("/usr/libexec/apache2/mod_jk.so")
     user node['current_user']
   end
 
-  link "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain" do
-    to "/Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.8.xctoolchain"
-    only_if "test -r /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain"
-    user "root"
+  execute "symlink Xcode" do
+    command "cd /Applications/Xcode.app/Contents/Developer/Toolchains;sudo ln -s XcodeDefault.xctoolchain OSX10.8.xctoolchain"
   end
 
   bash "install_program" do
