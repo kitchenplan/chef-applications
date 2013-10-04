@@ -18,6 +18,7 @@ case node["platform_family"]
         end
 
         execute "update homebrew from github" do
+            user node['current_user']
             command "/usr/local/bin/brew update || true"
         end
     when 'debian'
