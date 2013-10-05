@@ -1,19 +1,16 @@
 if platform?('mac_os_x')
-    dmg_package "PhpStorm" do
-        source "http://download.jetbrains.com/webide/PhpStorm-6.0.3.dmg"
-        action :install
-        owner node['current_user']
-    end
+    include_recipe "applications::homebrewcask"
+    applications_cask "phpstorm"
 elsif platform_family?('debian')
     phpstorm_version = "PhpStorm-6.0"
     user = node['current_user']
-    
+
     remote_file "#{Chef::Config[:file_cache_path]}/#{phpstorm_version}.tar.gz" do
         source "http://download-ln.jetbrains.com/webide/#{phpstorm_version}.tar.gz"
         notifies :run, "bash[install phpstorm]", :immediately
         not_if { File.directory?("/home/#{user}/#{phpstorm_version}") }
     end
-    
+
     bash "install phpstorm" do
         user "root"
         cwd Chef::Config[:file_cache_path]
