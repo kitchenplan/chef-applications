@@ -18,6 +18,7 @@ end
 node["sublime_text_packages"].each do |package|
   applications_sublime_package package["name"] do
     source package["source"]
+    branch package["branch"]
     destination File.join(sublime_package_path)
     owner node['current_user']
   end
