@@ -19,6 +19,7 @@ if platform?('mac_os_x')
         include_recipe "applications::increase_shared_memory"
 
         package "postgresql" do
+            options "--no-tcl"
             action [:install, :upgrade]
         end
 
