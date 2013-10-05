@@ -26,7 +26,7 @@ if platform_family?('debian')
 #    include_recipe 'applications::acl'
     include_recipe 'applications::server_tuning'
     include_recipe 'applications::postfix'
-    include_recipe 'applications::java'
+    include_recipe 'kono_workstation::java'
 end
 
 #Only the servers need newrelic and Varnish
