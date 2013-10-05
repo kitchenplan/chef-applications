@@ -3,5 +3,5 @@ dmg_package "Adobe Reader XI Installer" do
   action :install
   volumes_dir "AdbeRdr11004_en_US"
   type "pkg"
-  package_id "com.adobe.acrobat.reader.11.reader.app.pkg.en_US"
+  package_id "com.adobe.acrobat.reader.11004.reader.app.pkg.en_US"
 end
