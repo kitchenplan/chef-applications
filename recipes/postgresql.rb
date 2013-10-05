@@ -19,7 +19,7 @@ if platform?('mac_os_x')
         include_recipe "applications::increase_shared_memory"
 
         package "postgresql" do
-            options "--no-tcl"
+            options "--no-tcl --without-ossp-uuid"
             action [:install, :upgrade]
         end
 
