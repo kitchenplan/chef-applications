@@ -31,8 +31,22 @@ if platform?('mac_os_x')
       end
     end
 
+    execute "set ProductUserVisibleVersion to 10.8.5" do
+      command %'plistbuddy -c "set ProductUserVisibleVersion 10.8.5" /System/Library/CoreServices/SystemVersion.plist'
+    end
+    execute "set ProductVersion to 10.8.5" do
+      command %'plistbuddy -c "set ProductVersion 10.8.5" /System/Library/CoreServices/SystemVersion.plist'
+    end
+
     package "mysql" do
       action [:install, :upgrade]
+    end
+
+    execute "set ProductUserVisibleVersion to 10.9" do
+      command %'plistbuddy -c "set ProductUserVisibleVersion 10.9" /System/Library/CoreServices/SystemVersion.plist'
+    end
+    execute "set ProductVersion to 10.9" do
+      command %'plistbuddy -c "set ProductVersion 10.9" /System/Library/CoreServices/SystemVersion.plist'
     end
 
     execute "copy over the plist" do
@@ -64,16 +78,16 @@ if platform?('mac_os_x')
         end
       end
     end
-    
+
     execute "set the root password to the default" do
         command "mysqladmin -uroot password #{PASSWORD}"
         not_if "mysql -uroot -p#{PASSWORD} -e 'show databases'"
     end
 elsif platform_family?('debian')
-    
+
     include_recipe "percona::client"
     include_recipe "percona::server"
-    
+
     apt_repository "percona" do
         uri "http://repo.percona.com/apt"
         distribution node["lsb"]["codename"]
