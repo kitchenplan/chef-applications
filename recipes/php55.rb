@@ -2,45 +2,30 @@ include_recipe "applications::default"
 include_recipe "applications::apache"
 
 if platform?('mac_os_x')
-    applications_tap "josegonzalez/php"
-    applications_tap "homebrew/dupes"
 
-    package "php55" do |variable|
-        options "--with-mysql --with-pgsql"
+    execute "get packager" do
+        command "curl -s -o /tmp/packager.tgz http://php-osx.liip.ch/packager/packager.tgz && tar -C /usr/local -xzf /tmp/packager.tgz"
+        user node['current_user']
     end
-    
-    %w[ php55-apcu php55-http php55-xdebug php55-intl php55-yaml php55-imagick php55-twig php55-mcrypt].each do |pkg|
-        package pkg do
-            action [:install, :upgrade]
-        end
-    end
-    
-    template "/usr/local/etc/php/5.5/conf.d/99-kunstmaan.ini" do
-        source "php90kunstmaan.erb"
-        owner node['current_user']
-        mode "0644"
+    execute "run packager" do
+        command "/usr/local/packager/packager.py install 5.5-10.8-frontenddev"
     end
 
-    template "/etc/apache2/other/php.conf" do
-      source "apache_php.erb"
-      owner node['current_user']
-      mode "0755"
-    end
 elsif platform_family?('debian')
     packages = %w[ php5-mysqlnd php5-mcrypt php-apc php5-imagick php5-cli php5-gd php5-memcached php5-curl php5-intl php5-dev php5-sqlite php-pear libmagick++-dev ]
-    
+
     packages.each do |pkg|
         package pkg do
             action [:install, :upgrade]
         end
     end
-    
+
     template "/etc/php5/conf.d/99-kunstmaan.ini" do
         source "php90kunstmaan.erb"
         owner "root"
         mode "0755"
     end
-    
+
     template "/etc/php5/conf.d/50-apc.ini" do
         source "php50apc.erb"
         owner "root"
