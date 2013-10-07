@@ -82,7 +82,7 @@ if platform?('mac_os_x')
             begin
                 s = TCPSocket.open('localhost',postgres_port)
             rescue => e
-                raise "postgres is not running: " << e
+                raise "postgres is not running"
             end
             s.close
             `sudo -u #{node['current_user']} /usr/local/bin/psql -U postgres -h /tmp/ < /dev/null`
