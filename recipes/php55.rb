@@ -10,6 +10,11 @@ if platform?('mac_os_x')
     execute "run packager" do
         command "/usr/local/packager/packager.py install 5.5-10.8-frontenddev"
     end
+    template "/usr/local/php5/php.d/99-zkunstmaan.ini" do
+        source "php90kunstmaan.erb"
+        owner node['current_user']
+        mode "0644"
+    end
 
 elsif platform_family?('debian')
     packages = %w[ php5-mysqlnd php5-mcrypt php-apc php5-imagick php5-cli php5-gd php5-memcached php5-curl php5-intl php5-dev php5-sqlite php-pear libmagick++-dev ]
