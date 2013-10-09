@@ -1,9 +1,5 @@
 include_recipe "applications::default"
 
-package "bash" do
-  action [:install, :upgrade]
-end
-
 if platform_family?('mac_os_x')
 
     execute "set the root user shell to bash" do
