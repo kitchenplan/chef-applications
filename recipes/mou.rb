@@ -1,3 +1,2 @@
-applications_package "Mou" do
-  source  "http://mouapp.com/download/Mou.zip"
-end
+include_recipe "applications::homebrewcask"
+applications_cask "mou"
