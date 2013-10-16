@@ -1,3 +1,2 @@
-applications_package "Things" do
-  source  "http://culturedcode.com/things/download/"
-end
+include_recipe "applications::homebrewcask"
+applications_cask "things"
