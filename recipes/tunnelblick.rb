@@ -1,3 +1,2 @@
-applications_package "Tunnelblick" do
-  source  "http://tunnelblick.googlecode.com/files/Tunnelblick_3.3beta21b_Unsigned.zip"
-end
+include_recipe "applications::homebrewcask"
+applications_cask "tunnelblick"

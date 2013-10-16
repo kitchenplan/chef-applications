@@ -1,3 +1,2 @@
-applications_package "Hostbuddy" do
-  source  "http://dl.clickontyler.com/hostbuddy/hostbuddy_1.0.2.zip"
-end
+include_recipe "applications::homebrewcask"
+applications_cask "hostbuddy"
