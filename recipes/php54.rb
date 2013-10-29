@@ -6,7 +6,7 @@ if platform?('mac_os_x')
     applications_tap "homebrew/dupes"
 
     package "php54" do |variable|
-        options "--with-mysql --with-pgsql"
+        options "--with-mysql --with-pgsql --with-imap"
         #options "--with-mysql --with-pgsql --with-homebrew-openssl --without-bz2"
     end
 
