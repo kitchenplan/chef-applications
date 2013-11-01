@@ -17,7 +17,7 @@ if platform?('mac_os_x')
     end
 
 elsif platform_family?('debian')
-    packages = %w[ php5-mysqlnd php5-mcrypt php-apc php5-imagick php5-cli php5-gd php5-memcached php5-curl php5-intl php5-dev php5-sqlite php-pear libmagick++-dev ]
+    packages = %w[ php5-mysqlnd php5-mcrypt php-apcu php5-imagick php5-cli php5-gd php5-memcached php5-curl php5-intl php5-dev php5-sqlite php-mongo php-pear libmagick++-dev ]
 
     packages.each do |pkg|
         package pkg do
