@@ -1,4 +1,4 @@
-include_recipe 'applications:php55'
+include_recipe 'applications::php55'
 
 if platform?("mac_os_x")
   composer "/usr/local/bin" do
