@@ -3,17 +3,29 @@ include_recipe "applications::apache"
 
 if platform?('mac_os_x')
 
-    execute "get packager" do
-        command "curl -s -o /tmp/packager.tgz http://php-osx.liip.ch/packager/packager.tgz && tar -C /usr/local -xzf /tmp/packager.tgz"
-        user node['current_user']
+    applications_tap "josegonzalez/php"
+    applications_tap "homebrew/dupes"
+
+    package "php55" do |variable|
+        options "--with-mysql --with-pgsql --with-imap"
     end
-    execute "run packager" do
-        command "/usr/local/packager/packager.py install 5.5-10.8-frontenddev"
+
+    %w[ php55-apcu php55-http php55-xdebug php55-intl php55-yaml php55-imagick php55-solr php55-twig php55-mcrypt php55-mongo php55-memcached].each do |pkg|
+        package pkg do
+            action [:install, :upgrade]
+        end
     end
-    template "/usr/local/php5/php.d/99-zkunstmaan.ini" do
+
+    template "/usr/local/etc/php/5.4/conf.d/99-kunstmaan.ini" do
         source "php90kunstmaan.erb"
         owner node['current_user']
         mode "0644"
+    end
+
+    template "/etc/apache2/other/php.conf" do
+      source "apache_php.erb"
+      owner node['current_user']
+      mode "0755"
     end
 
 elsif platform_family?('debian')
