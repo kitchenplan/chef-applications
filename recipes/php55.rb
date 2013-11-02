@@ -17,7 +17,7 @@ if platform?('mac_os_x')
         end
     end
 
-    template "/usr/local/etc/php/5.4/conf.d/99-kunstmaan.ini" do
+    template "/usr/local/etc/php/5.5/conf.d/99-kunstmaan.ini" do
         source "php90kunstmaan.erb"
         owner node['current_user']
         mode "0644"
