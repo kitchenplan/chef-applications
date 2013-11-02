@@ -1,5 +1,6 @@
 include_recipe "applications::default"
 include_recipe "applications::apache"
+include_recipe "applications::postgresql"
 
 if platform?('mac_os_x')
 
