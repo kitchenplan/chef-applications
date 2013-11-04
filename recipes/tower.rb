@@ -1,3 +1,2 @@
-applications_package "Tower" do
-  source  "http://www.git-tower.com/download"
-end
+include_recipe "applications::homebrewcask"
+applications_cask "tower"

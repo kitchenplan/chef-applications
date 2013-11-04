@@ -1,3 +1,2 @@
-applications_package "Flux" do
-  source  "https://justgetflux.com/mac/Flux.zip"
-end
+include_recipe "applications::homebrewcask"
+applications_cask "f-lux"

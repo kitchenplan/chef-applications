@@ -31,22 +31,8 @@ if platform?('mac_os_x')
       end
     end
 
-    execute "set ProductUserVisibleVersion to 10.8.5" do
-      command %'/usr/libexec/PlistBuddy -c "set ProductUserVisibleVersion 10.8.5" /System/Library/CoreServices/SystemVersion.plist'
-    end
-    execute "set ProductVersion to 10.8.5" do
-      command %'/usr/libexec/PlistBuddy -c "set ProductVersion 10.8.5" /System/Library/CoreServices/SystemVersion.plist'
-    end
-
     package "mysql" do
       action [:install, :upgrade]
-    end
-
-    execute "set ProductUserVisibleVersion to 10.9" do
-      command %'/usr/libexec/PlistBuddy -c "set ProductUserVisibleVersion 10.9" /System/Library/CoreServices/SystemVersion.plist'
-    end
-    execute "set ProductVersion to 10.9" do
-      command %'/usr/libexec/PlistBuddy -c "set ProductVersion 10.9" /System/Library/CoreServices/SystemVersion.plist'
     end
 
     execute "copy over the plist" do
