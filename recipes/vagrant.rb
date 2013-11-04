@@ -21,3 +21,10 @@ elsif platform_family?("debian")
         action :install
     end
 end
+
+node["vagrant_plugins"].each do |plugin|
+  execute "install vagrant plugin #{plugin}" do
+    command "vagrant plugin install #{plugin}"
+    not_if "vagrant plugin list | grep #{plugin}"
+  end
+end
