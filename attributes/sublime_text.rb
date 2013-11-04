@@ -3,7 +3,6 @@ node.default["sublime_text_packages"] = [
   {"name" => "Git", "source" => "https://github.com/kemayo/sublime-text-2-git", "branch" => "master"},
   {"name" => "PHP-Twig", "source" => "https://github.com/Anomareh/PHP-Twig.tmbundle", "branch" => "master"},
   {"name" => "SideBarEnhancements", "source" => "https://github.com/titoBouzout/SideBarEnhancements", "branch" => "st3"},
-  {"name" => "SublimeCodeIntel", "source" => "http://github.com/Kronuz/SublimeCodeIntel", "branch" => "master"},
   {"name" => "Theme - Aqua", "source" => "https://github.com/cafarm/aqua-theme", "branch" => "master"},
   {"name" => "Tomorrow Color Schemes", "source" => "https://github.com/theymaybecoders/sublime-tomorrow-theme", "branch" => "master"},
   {"name" => "Solarized", "source" => "https://github.com/mybuddymichael/solarized-sublimetext2", "branch" => "master"},
