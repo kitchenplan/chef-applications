@@ -20,6 +20,15 @@ ExtendedStatus on
     Allow from 127.0.0.1
 </Location>
 
+<IfModule jk_module>
+	JkWorkersFile /etc/apache2/workers.properties
+	JkLogFile     /tmp/mod_jk.log
+	JkLogLevel    info
+	JkLogStampFormat "[%a %b %d %H:%M:%S %Y] "
+	JkOptions     +ForwardKeySize +ForwardURICompat +ForwardDirectories
+	JkRequestLogFormat     "%w %V %T"
+</IfModule>
+
 # Include the virtual host configurations:
 Include /etc/apache2/conf/projects.d/namevirtualhosts
 
