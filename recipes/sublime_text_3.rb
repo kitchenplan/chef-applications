@@ -24,8 +24,9 @@ node["sublime_text_packages"].each do |package|
   end
 end
 
-template File.expand_path("Preferences.sublime-settings", File.join(sublime_user_path)) do
-  source "sublime_text-Preferences.sublime-settings.erb"
+require 'json'
+file File.expand_path("Preferences.sublime-settings", File.join(sublime_user_path)) do
+  content JSON.generate(node['sublime_text']['preferences'], {indent: "  ", object_nl: "\n"})
   owner node['current_user']
   action :create_if_missing
 end
