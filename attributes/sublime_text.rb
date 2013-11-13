@@ -16,3 +16,35 @@ node.default["sublime_text_packages"] = [
   {"name" => "Emmet", "source" => "https://github.com/sergeche/emmet-sublime", "branch" => "master"}
 ]
 node.default["sublime_text"]["color_scheme"] = "Packages/Tomorrow Color Schemes/Tomorrow-Night-Eighties.tmTheme"
+
+node.default['sublime_text']['preferences'] = {}.tap do |prefs|
+  prefs["bold_folder_labels"] = true
+  prefs["color_scheme"] = node['sublime_text']['color_scheme']
+  prefs["draw_white_space"] = "all"
+  prefs["ensure_newline_at_eof_on_save"] = true
+  prefs["file_exclude_patterns"] = [
+    ".DS_Store",
+    ".gitkeep",
+    "dump.rdb"
+  ]
+  prefs["folder_exclude_patterns"] =[
+    ".git",
+    ".sass-cache",
+    "coverage",
+    "log",
+    "tmp"
+  ]
+  prefs["highlight_modified_tabs"] = true
+  prefs["highlight_line"] = true
+  prefs["hot_exit"] = false
+  prefs["caret_style"] = "phase"
+  prefs["remember_open_files"] = false
+  prefs["save_on_focus_lost"] = true
+  prefs["tab_size"] = 4
+  prefs["theme"] = "ProKit.sublime-theme"
+  prefs["translate_tabs_to_spaces"] = true
+  prefs["trim_trailing_white_space_on_save"] = true
+  prefs["line_padding_bottom"] = 1
+  prefs["line_padding_top"] = 1
+  prefs["fade_fold_buttons"] = false
+end
