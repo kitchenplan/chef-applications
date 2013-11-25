@@ -24,12 +24,12 @@ node["sublime_text_packages"].each do |package|
   end
 end
 
-require 'json'
-file File.expand_path("Preferences.sublime-settings", File.join(sublime_user_path)) do
-  content JSON.generate(node['sublime_text']['preferences'], {indent: "  ", object_nl: "\n"})
-  owner node['current_user']
-  action :create_if_missing
-end
+#require 'json'
+#file File.expand_path("Preferences.sublime-settings", File.join(sublime_user_path)) do
+#  content JSON.generate(node['sublime_text']['preferences'], {indent: "  ", object_nl: "\n"})
+#  owner node['current_user']
+#  action :create_if_missing
+#end
 
 package_dir = "#{node['etc']['passwd'][node['current_user']]['dir']}/Library/Application Support/Sublime Text 3/Installed Packages"
 filename    = "Package Control.sublime-package"
