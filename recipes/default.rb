@@ -8,7 +8,7 @@ case node["platform_family"]
         homebrew_go = "#{Chef::Config[:file_cache_path]}/homebrew_go"
 
         remote_file homebrew_go do
-            source "https://raw.github.com/mxcl/homebrew/go"
+            source "https://raw.github.com/mxcl/homebrew/go/install"
             mode 00755
         end
 
