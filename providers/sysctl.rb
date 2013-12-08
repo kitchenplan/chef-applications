@@ -38,4 +38,6 @@ action :set do
       set_value_in_sysctl(new_resource.name, new_resource.value)
     end
   end
+
+    new_resource.updated_by_last_action(true)
 end
