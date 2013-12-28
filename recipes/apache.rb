@@ -1,93 +1,50 @@
-include_recipe "applications::default"
+include_recipe "applications::packagemanager"
 
-if platform?('mac_os_x')
-    template "/etc/apache2/other/kdeploy.conf" do
-      source "apache_kdeploy_osx.erb"
-      owner "root"
-      group value_for_platform(
-                                "mac_os_x" => { "default" => "admin" },
-                                "default" => "root"
-                              )
-      mode "0755"
-      variables(
-        :user => node['current_user']
-      )
-    end
-elsif platform_family?('debian')
-    include_recipe "apache2::default"
-    template "/etc/apache2/conf.d/kdeploy.conf" do
-        source "apache_kdeploy_debian.erb"
-        owner "root"
-        mode "0755"
-        notifies :restart, "service[apache2]"
-    end
-end
+case node["platform_family"]
+    when 'mac_os_x'
+        # Nothing specific needs to happen for OSX
+    when 'debian'
+        include_recipe "apache2::default"
+        include_recipe "apache2::mod_alias"
+        include_recipe "apache2::mod_auth_basic"
+        include_recipe "apache2::mod_auth_digest"
+        include_recipe "apache2::mod_deflate"
+        include_recipe "apache2::mod_expires"
+        include_recipe "apache2::mod_fastcgi"
+        include_recipe "apache2::mod_headers"
+        include_recipe "apache2::mod_mime"
+        include_recipe "apache2::mod_proxy"
+        include_recipe "apache2::mod_proxy_ajp"
+        include_recipe "apache2::mod_proxy_balancer"
+        include_recipe "apache2::mod_proxy_connect"
+        include_recipe "apache2::mod_proxy_http"
+        include_recipe "apache2::mod_rewrite"
+        include_recipe "apache2::mod_status"
+        include_recipe "apache2::mod_ssl"
+        include_recipe "apache2::mod_jk"
+        include_recipe "apache2::mod_actions"
+        include_recipe "apache2::mod_filter"
+        include_recipe "apache2::logrotate"
 
-%w{/etc/apache2/conf/projects.d /etc/apache2/logs /opt/nowebsite}.each do |pkg|
-  directory pkg do
-      owner "root"
-      group value_for_platform(
-                            "mac_os_x" => { "default" => "admin" },
-                            "default" => "root"
-                          )
-      mode 0777
-      action :create
-      recursive true
-  end
-end
+        template "/etc/apache2/mods-enabled/jk.conf" do
+            source "apache/jk.conf.erb"
+            owner "root"
+            mode "0644"
+            notifies :restart, "service[apache2]"
+        end
 
-%w{/etc/apache2/conf/projects.d/namevirtualhosts /etc/apache2/workers.properties}.each do |pkg|
-  file pkg do
-    owner "root"
-    group value_for_platform(
-                            "mac_os_x" => { "default" => "admin" },
-                            "default" => "root"
-                          )
-    mode 0777
-    action :touch
-  end
-end
+        template "/etc/apache2/mods-available/fastcgi.conf" do
+            source "apache/fastcgi.conf.erb"
+            owner "root"
+            mode "0644"
+            notifies :restart, "service[php5-fpm]"
+        end
 
-if platform_family?('debian')
-
-    %w[ apache2 apache2-mpm-worker apache2-threaded-dev libapache2-mod-rpaf libapache2-mod-php5 libapache2-mod-jk ].each do |pkg|
-        package pkg do
-            action [:install, :upgrade]
+        template "/etc/apache2/conf.d/proxy-logging.conf" do
+            source "apache/proxy-logging.conf.erb"
+            owner "root"
+            mode "0644"
+            notifies :restart, "service[apache2]"
         end
     end
 
-    #Settings for mod_jk
-    template "/etc/apache2/mods-enabled/jk.conf" do
-        source "apache_jk.conf.erb"
-        owner "root"
-        mode "0755"
-        notifies :restart, "service[apache2]"
-    end
-
-    template "/etc/apache2/conf/projects.d/namevirtualhosts" do
-        source "apache_namevirtualhosts.erb"
-        owner "root"
-        mode "0644"
-        notifies :restart, "service[apache2]"
-    end
-
-    template "/etc/apache2/apache2.conf" do
-        source "apache2.conf.erb"
-        owner "root"
-        mode "0644"
-        notifies :restart, "service[apache2]"
-    end
-
-    apache_module "actions"
-    apache_module "rewrite"
-    apache_module "ssl"
-
-    bash "default" do
-        user "root"
-        code <<-EOH
-            a2dissite 000-default
-        EOH
-        only_if File.exists?("/etc/apache2/sites-enabled/000-default")
-    end
-
-end

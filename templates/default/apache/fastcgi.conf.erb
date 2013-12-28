@@ -1,0 +1,15 @@
+<IfModule mod_fastcgi.c>
+  AddHandler php5-fcgi .php
+  Action php5-fcgi /php5-fpm/php5.external
+  <Location "/php5-fpm/php5.external">
+    <IfVersion < 2.4>
+        Order deny,allow
+        Deny from all
+        Allow from env=REDIRECT_STATUS
+    </IfVersion>
+    <IfVersion >= 2.4>
+        Require all denied
+        Require env REDIRECT_STATUS
+    </IfVersion>
+  </Location>
+</IfModule>

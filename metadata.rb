@@ -8,6 +8,7 @@ version          '0.0.1'
 supports         "mac_os_x"
 supports         "debian"
 supports         "ubuntu"
+
 depends          "dmg"
 depends          "composer"
 depends          "apt"
