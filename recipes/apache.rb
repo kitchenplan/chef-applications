@@ -37,7 +37,7 @@ case node["platform_family"]
             source "apache/fastcgi.conf.erb"
             owner "root"
             mode "0644"
-            notifies :restart, "service[php5-fpm]"
+            notifies :restart, "service[apache2]"
         end
 
         template "/etc/apache2/conf.d/proxy-logging.conf" do

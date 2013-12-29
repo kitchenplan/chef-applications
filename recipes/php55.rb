@@ -30,23 +30,40 @@ if platform?('mac_os_x')
     end
 
 elsif platform_family?('debian')
-    packages = %w[ php5-mysqlnd php5-mcrypt php-apcu php5-imagick php5-cli php5-gd php5-memcached php5-curl php5-intl php5-dev php5-sqlite php-mongo php-pear libmagick++-dev ]
 
-    packages.each do |pkg|
-        package pkg do
-            action [:install, :upgrade]
+    if node['platform_version'] == "12.04"
+        r = apt_repository "php-5.4" do
+          uri "http://ppa.launchpad.net/ondrej/php5-oldstable/ubuntu"
+          distribution node['lsb']['codename']
+          components ["main"]
+          keyserver "keyserver.ubuntu.com"
+          key "E5267A6C"
+          action :nothing
         end
+
+        # Add the ppa before chef starts it run
+        r.run_action(:add)
     end
 
-    template "/etc/php5/conf.d/99-kunstmaan.ini" do
-        source "php90kunstmaan.erb"
-        owner "root"
-        mode "0755"
+    include_recipe "php::default"
+    include_recipe "php::fpm"
+    include_recipe "php::module_common"
+    include_recipe "php::module_mysql"
+    include_recipe "php::module_xml"
+    include_recipe "php::module_memcache"
+    include_recipe "imagemagick::default"
+
+    package "php5-imagick" do
+      action :install
+      notifies :restart, "service[php5-fpm]"
     end
 
-    template "/etc/php5/conf.d/50-apc.ini" do
-        source "php50apc.erb"
-        owner "root"
-        mode "0755"
+    if node['platform_version'] <='13.10'
+      include_recipe "php::module_apc"
+
+      execute "Disable default apc-configuration" do
+       command "php5dismod apc"
+        not_if "test ! -e /etc/php5/conf.d/20-apc.ini"
+      end
     end
 end
