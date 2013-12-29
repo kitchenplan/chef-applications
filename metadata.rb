@@ -6,16 +6,17 @@ description      'Installs and configures mac_osx applications'
 version          '0.0.1'
 
 supports         "mac_os_x"
-supports         "debian"
 supports         "ubuntu"
 
 depends          "dmg"
 depends          "composer"
 depends          "apt"
 depends          "rvm"
-depends          "apache2"
-depends          "percona"
 depends          "newrelic"
 depends          "osxdefaults"
+
+depends          "apache2"
 depends          "logrotate"
+depends          "percona"
+depends          "postgresql"
 depends          "php"

@@ -70,25 +70,8 @@ if platform?('mac_os_x')
         not_if "mysql -uroot -p#{PASSWORD} -e 'show databases'"
     end
 elsif platform_family?('debian')
-
-    include_recipe "percona::client"
     include_recipe "percona::server"
-
-    apt_repository "percona" do
-        uri "http://repo.percona.com/apt"
-        distribution node["lsb"]["codename"]
-        components ["main"]
-        keyserver "keys.gnupg.net"
-        key "1C4CBDCDCD2EFD2A"
-        action :add
-        notifies :run, "execute[apt-get update]", :immediately
-    end
-
-    %w[percona-server-server-5.5 percona-server-client-5.5 percona-toolkit libmysqlclient-dev].each do |pkg|
-        package pkg do
-            action [:install, :upgrade]
-        end
-    end
+    include_recipe "percona::toolkit"
 end
 
 

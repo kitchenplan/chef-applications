@@ -1,6 +1,7 @@
 include_recipe "applications::default"
 include_recipe "applications::apache"
 include_recipe "applications::postgresql"
+include_recipe "applications::mysql"
 
 if platform?('mac_os_x')
 
@@ -40,8 +41,6 @@ elsif platform_family?('debian')
           key "E5267A6C"
           action :nothing
         end
-
-        # Add the ppa before chef starts it run
         r.run_action(:add)
     end
 
@@ -49,6 +48,7 @@ elsif platform_family?('debian')
     include_recipe "php::fpm"
     include_recipe "php::module_common"
     include_recipe "php::module_mysql"
+    include_recipe "php::module_pgsql"
     include_recipe "php::module_xml"
     include_recipe "php::module_memcache"
     include_recipe "imagemagick::default"
@@ -58,12 +58,10 @@ elsif platform_family?('debian')
       notifies :restart, "service[php5-fpm]"
     end
 
-    if node['platform_version'] <='13.10'
-      include_recipe "php::module_apc"
+    include_recipe "php::module_apc"
 
-      execute "Disable default apc-configuration" do
+    execute "Disable default apc-configuration" do
        command "php5dismod apc"
         not_if "test ! -e /etc/php5/conf.d/20-apc.ini"
-      end
     end
 end
