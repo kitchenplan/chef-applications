@@ -13,9 +13,10 @@ node.default["sublime_text_packages"] = [
   {"name" => "MarkdownPreview", "source" => "https://github.com/revolunet/sublimetext-markdown-preview", "branch" => "master"},
   {"name" => "GitGutter", "source" => "https://github.com/jisaacks/GitGutter.git", "branch" => "master"},
   {"name" => "SublimeCodeIntel", "source" => "https://github.com/SublimeCodeIntel/SublimeCodeIntel", "branch" => "master"},
-  {"name" => "Emmet", "source" => "https://github.com/sergeche/emmet-sublime", "branch" => "master"}
+  {"name" => "Emmet", "source" => "https://github.com/sergeche/emmet-sublime", "branch" => "master"},
+  {"name" => "Spacegray", "source" => "https://github.com/kkga/spacegray.git", "branch" => "master"}
 ]
-node.default["sublime_text"]["color_scheme"] = "Packages/Tomorrow Color Schemes/Tomorrow-Night-Eighties.tmTheme"
+node.default["sublime_text"]["color_scheme"] = "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme"
 
 node.default['sublime_text']['preferences'] = {}.tap do |prefs|
   prefs["bold_folder_labels"] = true
@@ -41,7 +42,7 @@ node.default['sublime_text']['preferences'] = {}.tap do |prefs|
   prefs["remember_open_files"] = false
   prefs["save_on_focus_lost"] = true
   prefs["tab_size"] = 4
-  prefs["theme"] = "ProKit.sublime-theme"
+  prefs["theme"] = "Spacegray.sublime-theme"
   prefs["translate_tabs_to_spaces"] = true
   prefs["trim_trailing_white_space_on_save"] = true
   prefs["line_padding_bottom"] = 1
