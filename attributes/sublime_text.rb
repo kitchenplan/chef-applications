@@ -7,14 +7,15 @@ node.default["sublime_text_packages"] = [
   {"name" => "Theme - Soda", "source" => "https://github.com/buymeasoda/soda-theme.git", "branch" => "master"},
   {"name" => "Tomorrow Color Schemes", "source" => "https://github.com/theymaybecoders/sublime-tomorrow-theme", "branch" => "master"},
   {"name" => "Solarized", "source" => "https://github.com/mybuddymichael/solarized-sublimetext2", "branch" => "master"},
-  {"name" => "DetectSyntax", "source" => "https://github.com/phillipkoebbe/DetectSyntax", "branch" => "master"},
-  {"name" => "SCSS", "source" => "https://github.com/kuroir/SCSS.tmbundle", "branch" => "master"},
+  {"name" => "ApplySyntax", "source" => "https://github.com/facelessuser/ApplySyntax.git", "branch" => "ST3"},
+  {"name" => "SCSS", "source" => "https://github.com/MarioRicalde/SCSS.tmbundle.git", "branch" => "SublimeText2"},
   {"name" => "CoffeeScript", "source" => "https://github.com/Xavura/CoffeeScript-Sublime-Plugin.git", "branch" => "master"},
-  {"name" => "MarkdownPreview", "source" => "https://github.com/revolunet/sublimetext-markdown-preview", "branch" => "master"},
+  {"name" => "MarkdownPreview", "source" => "https://github.com/revolunet/sublimetext-markdown-preview.git", "branch" => "master"},
   {"name" => "GitGutter", "source" => "https://github.com/jisaacks/GitGutter.git", "branch" => "master"},
-  {"name" => "SublimeCodeIntel", "source" => "https://github.com/SublimeCodeIntel/SublimeCodeIntel", "branch" => "master"},
-  {"name" => "Emmet", "source" => "https://github.com/sergeche/emmet-sublime", "branch" => "master"},
-  {"name" => "Spacegray", "source" => "https://github.com/kkga/spacegray.git", "branch" => "master"}
+  {"name" => "SublimeCodeIntel", "source" => "https://github.com/SublimeCodeIntel/SublimeCodeIntel.git", "branch" => "master"},
+  {"name" => "Emmet", "source" => "https://github.com/sergeche/emmet-sublime.git", "branch" => "master"},
+  {"name" => "Spacegray", "source" => "https://github.com/kkga/spacegray.git", "branch" => "master"},
+  {"name" => "SublimeLinter", "source" => "https://github.com/SublimeLinter/SublimeLinter3.git", "branch" => "master"}
 ]
 node.default["sublime_text"]["color_scheme"] = "Packages/Tomorrow Color Schemes/Tomorrow-Night-Eighties.tmTheme"
 
