@@ -1,10 +1,10 @@
 node.default["sublime_text_packages"] = [
-  {"name" => "BracketHighlighter", "source" => "https://github.com/facelessuser/BracketHighlighter", "branch" => "master"},
-  {"name" => "Git", "source" => "https://github.com/kemayo/sublime-text-2-git", "branch" => "master"},
-  {"name" => "PHP-Twig", "source" => "https://github.com/Anomareh/PHP-Twig.tmbundle", "branch" => "master"},
+  {"name" => "BracketHighlighter", "source" => "https://github.com/facelessuser/BracketHighlighter.git", "branch" => "BH2ST3"},
+  {"name" => "Git", "source" => "https://github.com/kemayo/sublime-text-git.git", "branch" => "master"},
+  {"name" => "PHP-Twig", "source" => "https://github.com/Anomareh/PHP-Twig.tmbundle.git", "branch" => "master"},
   {"name" => "SideBarEnhancements", "source" => "https://github.com/titoBouzout/SideBarEnhancements", "branch" => "st3"},
-  {"name" => "SublimeCodeIntel", "source" => "http://github.com/Kronuz/SublimeCodeIntel", "branch" => "master"},
-  {"name" => "Theme - Aqua", "source" => "https://github.com/cafarm/aqua-theme", "branch" => "master"},
+  {"name" => "Theme - Aqua", "source" => "https://github.com/cafarm/aqua-theme.git", "branch" => "master"},
+  {"name" => "Theme - Soda", "source" => "https://github.com/buymeasoda/soda-theme.git", "branch" => "master"},
   {"name" => "Tomorrow Color Schemes", "source" => "https://github.com/theymaybecoders/sublime-tomorrow-theme", "branch" => "master"},
   {"name" => "Solarized", "source" => "https://github.com/mybuddymichael/solarized-sublimetext2", "branch" => "master"},
   {"name" => "DetectSyntax", "source" => "https://github.com/phillipkoebbe/DetectSyntax", "branch" => "master"},
@@ -16,7 +16,7 @@ node.default["sublime_text_packages"] = [
   {"name" => "Emmet", "source" => "https://github.com/sergeche/emmet-sublime", "branch" => "master"},
   {"name" => "Spacegray", "source" => "https://github.com/kkga/spacegray.git", "branch" => "master"}
 ]
-node.default["sublime_text"]["color_scheme"] = "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme"
+node.default["sublime_text"]["color_scheme"] = "Packages/Tomorrow Color Schemes/Tomorrow-Night-Eighties.tmTheme"
 
 node.default['sublime_text']['preferences'] = {}.tap do |prefs|
   prefs["bold_folder_labels"] = true
@@ -42,7 +42,7 @@ node.default['sublime_text']['preferences'] = {}.tap do |prefs|
   prefs["remember_open_files"] = false
   prefs["save_on_focus_lost"] = true
   prefs["tab_size"] = 4
-  prefs["theme"] = "Spacegray.sublime-theme"
+  prefs["theme"] = "Soda Dark 3.sublime-theme"
   prefs["translate_tabs_to_spaces"] = true
   prefs["trim_trailing_white_space_on_save"] = true
   prefs["line_padding_bottom"] = 1
