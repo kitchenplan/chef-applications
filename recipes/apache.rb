@@ -26,6 +26,8 @@ case node["platform_family"]
         include_recipe "apache2::mod_filter"
         include_recipe "apache2::logrotate"
 
+        package 'apache2-utils'
+
         template "/etc/apache2/mods-enabled/jk.conf" do
             source "apache/jk.conf.erb"
             owner "root"
