@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "lastpass-universal"
+homebrew_cask "lastpass-universal"

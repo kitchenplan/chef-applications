@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "diffmerge"
+homebrew_cask "diffmerge"

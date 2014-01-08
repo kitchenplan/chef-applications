@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "colloquy"
+homebrew_cask "colloquy"

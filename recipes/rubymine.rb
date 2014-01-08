@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "rubymine"
+homebrew_cask "rubymine"

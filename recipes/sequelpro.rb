@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "sequel-pro"
+homebrew_cask "sequel-pro"

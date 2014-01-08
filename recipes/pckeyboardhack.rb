@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "pc-keyboardhack"
+homebrew_cask "pc-keyboardhack"

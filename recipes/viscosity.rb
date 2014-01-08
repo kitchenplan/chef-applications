@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "viscosity"
+homebrew_cask "viscosity"

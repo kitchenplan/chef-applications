@@ -2,7 +2,7 @@ include_recipe "applications::virtualbox"
 
 if platform?("mac_os_x")
     include_recipe "applications::homebrewcask"
-    applications_cask "vagrant"
+    homebrew_cask "vagrant"
 elsif platform_family?("debian")
     #nfs-kernel-server is needed for the shared folders
     %w[ nfs-kernel-server ].each do |pkg|

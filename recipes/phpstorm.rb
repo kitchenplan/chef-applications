@@ -1,6 +1,6 @@
 if platform?('mac_os_x')
     include_recipe "applications::homebrewcask"
-    applications_cask "phpstorm"
+    homebrew_cask "phpstorm"
 elsif platform_family?('debian')
     phpstorm_version = "PhpStorm-6.0"
     user = node['current_user']

@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "nitrous-io"
+homebrew_cask "nitrous-io"

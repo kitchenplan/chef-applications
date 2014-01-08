@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "istat-menus"
+homebrew_cask "istat-menus"

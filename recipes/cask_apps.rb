@@ -3,5 +3,5 @@
 include_recipe "applications::homebrewcask"
 
 node['brew']['cask_apps'].each do |app|
-  applications_cask app
+  homebrew_cask app
 end

@@ -1,6 +1,6 @@
 if platform?("mac_os_x")
     include_recipe "applications::homebrewcask"
-    applications_cask "virtualbox"
+    homebrew_cask "virtualbox"
 elsif platform_family?("debian")
     apt_repository "virtualbox" do
         uri "http://download.virtualbox.org/virtualbox/debian"

@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "transmit"
+homebrew_cask "transmit"

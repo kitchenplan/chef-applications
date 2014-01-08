@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "super-duper"
+homebrew_cask "super-duper"

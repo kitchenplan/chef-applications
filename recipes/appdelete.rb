@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "app-delete"
+homebrew_cask "app-delete"

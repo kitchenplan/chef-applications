@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "alfred"
+homebrew_cask "alfred"

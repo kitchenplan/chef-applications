@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "imageoptim"
+homebrew_cask "imageoptim"

@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "sizeup"
+homebrew_cask "sizeup"

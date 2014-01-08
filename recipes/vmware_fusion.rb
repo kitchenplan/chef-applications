@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "vmware-fusion"
+homebrew_cask "vmware-fusion"

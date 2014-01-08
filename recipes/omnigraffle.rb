@@ -1,5 +1,5 @@
 include_recipe "applications::homebrewcask"
-applications_cask "omnigraffle"
+homebrew_cask "omnigraffle"
 
 gtemplate = "#{node['etc']['passwd'][node['current_user']]['dir']}/Library/Application Support/OmniGraffle/Templates/Konigi-UX-Template.gtemplate"
 unless File.exists?(gtemplate)

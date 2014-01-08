@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "x-quartz"
+homebrew_cask "x-quartz"

@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "keyremap4macbook"
+homebrew_cask "keyremap4macbook"

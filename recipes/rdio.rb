@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "rdio"
+homebrew_cask "rdio"

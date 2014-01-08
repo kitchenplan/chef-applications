@@ -1,6 +1,6 @@
 if platform?('mac_os_x')
   include_recipe "applications::homebrewcask"
-  applications_cask "google-chrome"
+  homebrew_cask "google-chrome"
 elsif platform_family?('debian')
   include_recipe "apt"
   apt_repository "chrome" do

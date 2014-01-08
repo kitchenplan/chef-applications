@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "f-lux"
+homebrew_cask "f-lux"

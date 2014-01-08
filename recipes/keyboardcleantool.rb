@@ -1,2 +1,2 @@
 include_recipe "applications::homebrewcask"
-applications_cask "keyboard-clean-tool"
+homebrew_cask "keyboard-clean-tool"
