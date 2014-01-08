@@ -1,6 +1,6 @@
 include_recipe "applications::default"
 
-applications_tap "phinze/homebrew-cask" do
+homebrew_tap "phinze/homebrew-cask" do
     not_if { ::File.directory?("/usr/local/Library/Taps/phinze-cask") }
 end
 

@@ -3,9 +3,9 @@ include_recipe "applications::composer"
 
 case node["platform_family"]
     when 'mac_os_x'
-        applications_tap "homebrew/dupes"
-        applications_tap "homebrew/versions"
-        applications_tap "mcuadros/homebrew-hhvm"
+        homebrew_tap "homebrew/dupes"
+        homebrew_tap "homebrew/versions"
+        homebrew_tap "mcuadros/homebrew-hhvm"
     when 'debian'
         apt_repository 'hhvm' do
           uri          'http://dl.hhvm.com/ubuntu'

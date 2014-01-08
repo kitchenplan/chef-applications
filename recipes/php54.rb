@@ -2,8 +2,8 @@ include_recipe "applications::default"
 include_recipe "applications::apache"
 
 if platform?('mac_os_x')
-    applications_tap "josegonzalez/php"
-    applications_tap "homebrew/dupes"
+    homebrew_tap "josegonzalez/php"
+    homebrew_tap "homebrew/dupes"
 
     package "php54" do |variable|
         options "--with-mysql --with-pgsql --with-imap"
