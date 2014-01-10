@@ -5,8 +5,8 @@ include_recipe "applications::mysql"
 
 if platform?('mac_os_x')
 
-    homebrew_tap "josegonzalez/php"
     homebrew_tap "homebrew/dupes"
+    homebrew_tap "josegonzalez/php"
 
     package "php55" do |variable|
         options "--with-mysql --with-pgsql --with-imap"
