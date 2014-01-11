@@ -1,7 +1,7 @@
-dmg_package "TotalFinder" do
-  source "http://downloads.binaryage.com/TotalFinder-1.4.16.dmg"
-  action :install
-  type "pkg"
-  owner node['current_user']
-  package_id "com.binaryage.pkg.totalfinder.app"
+case node["platform_family"]
+    when 'mac_os_x'
+        include_recipe "applications::homebrewcask"
+        homebrew_cask "totalfinder"
+    when 'debian'
+        Chef::Log.debug("This recipe is OSX only")
 end

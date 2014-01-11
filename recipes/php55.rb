@@ -31,10 +31,9 @@ if platform?('mac_os_x')
     end
 
 elsif platform_family?('debian')
-
     if node['platform_version'] == "12.04"
-        r = apt_repository "php-5.4" do
-          uri "http://ppa.launchpad.net/ondrej/php5-oldstable/ubuntu"
+        r = apt_repository "php-5.5" do
+          uri "http://ppa.launchpad.net/ondrej/php5/ubuntu"
           distribution node['lsb']['codename']
           components ["main"]
           keyserver "keyserver.ubuntu.com"

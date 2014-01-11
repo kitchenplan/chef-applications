@@ -12,6 +12,7 @@ depends          "dmg"
 depends          "composer"
 depends          "apt"
 depends          "rvm"
+depends          "rbenv"
 depends          "newrelic"
 depends          "osxdefaults"
 

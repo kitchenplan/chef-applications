@@ -1,3 +1,7 @@
-applications_package "Charles" do
-  source  "http://c720206.r6.cf2.rackcdn.com/charles-proxy_3.6.5.zip"
+case node["platform_family"]
+    when 'mac_os_x'
+        include_recipe "applications::homebrewcask"
+        homebrew_cask "charles"
+    when 'debian'
+        Chef::Log.debug("This recipe is OSX only")
 end

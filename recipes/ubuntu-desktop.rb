@@ -4,7 +4,7 @@ if platform?("ubuntu")
             action [:install, :upgrade]
         end
     end
-    
+
     execute "set gdm as default display-manager" do
         command "dpkg-reconfigure gdm"
         user "root"
