@@ -18,3 +18,7 @@ end
 package "git" do
   action [:install, :upgrade]
 end
+
+package "git-extras" do
+  action [:install, :upgrade]
+end
