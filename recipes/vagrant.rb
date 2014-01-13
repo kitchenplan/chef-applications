@@ -21,13 +21,12 @@ case node["platform_family"]
             source "#{Chef::Config[:file_cache_path]}/vagrant.deb"
             action :install
         end
-    end
+end
 
-    node["vagrant_plugins"].each do |plugin|
-      execute "install vagrant plugin #{plugin}" do
+node["vagrant_plugins"].each do |plugin|
+    execute "install vagrant plugin #{plugin}" do
         command "vagrant plugin install #{plugin}"
         user node['current_user']
         not_if "vagrant plugin list | grep #{plugin}"
-      end
     end
 end
