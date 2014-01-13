@@ -38,6 +38,14 @@ case node["platform_family"]
         owner node['current_user']
         :create_if_missing
       end
+      
+      require 'json'
+      file File.expand_path("Preferences.sublime-settings", File.join(sublime_user_path)) do
+          content JSON.generate(node['sublime_text']['preferences'], {indent: "  ", object_nl: "\n"})
+          owner node['current_user']
+          action :create_if_missing
+      end
+      
     when 'debian'
         Chef::Log.debug("This recipe is OSX only")
 end
