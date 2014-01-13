@@ -92,37 +92,6 @@ if platform?('mac_os_x')
         end
     end
 
-    postgresuser = value_for_platform(
-        ["ubuntu"] => { "default" => "postgres"},
-        "default" => node['current_user']
-    )
-
-    postgrescmd = value_for_platform(
-        ["ubuntu"] => { "default" => "psql"},
-        "default" => "/usr/local/bin/psql"
-    )
-
-    postgressocket = value_for_platform(
-        ["ubuntu"] => { "default" => "/var/run/postgresql/"},
-        "default" => "/tmp/"
-    )
-
-    execute "create the postgres smlscript superuser" do
-        command "#{postgrescmd} -d template1 -h #{postgressocket} -c 'create user smlscript;'"
-        user postgresuser
-        not_if "#{postgrescmd} -d template1 -h #{postgressocket} -tAc \"SELECT * FROM pg_roles WHERE rolname='smlscript'\" | grep -q smlscript", :user => postgresuser
-    end
-
-    execute "create the postgres '#{node['current_user']}' superuser" do
-        command "#{postgrescmd} -d template1 -h #{postgressocket} -c \"alter user smlscript with password 'sml';\""
-        user postgresuser
-    end
-
-    execute "create the postgres '#{node['current_user']}' superuser" do
-        command "#{postgrescmd} -d template1 -h #{postgressocket} -c 'GRANT SELECT ON pg_shadow TO smlscript;'"
-        user postgresuser
-    end
-
 elsif platform_family?('debian')
     include_recipe "postgresql::server"
     include_recipe "postgresql::config_pgtune"
