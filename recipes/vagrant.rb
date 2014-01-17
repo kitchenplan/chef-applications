@@ -2,6 +2,7 @@ include_recipe "applications::virtualbox"
 
 case node["platform_family"]
     when 'mac_os_x'
+        FileUtils.chown_R node['current_user'], 'staff', "/Users/" + node['current_user'] + "/.vagrant.d/"
         include_recipe "applications::homebrewcask"
         homebrew_cask "vagrant"
     when 'debian'
