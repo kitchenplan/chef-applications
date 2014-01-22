@@ -2,9 +2,6 @@ include_recipe "applications::virtualbox"
 
 case node["platform_family"]
     when 'mac_os_x'
-        if File.exists?("/Users/" + node['current_user'] + "/.vagrant.d/")
-            FileUtils.chown_R node['current_user'], 'staff', "/Users/" + node['current_user'] + "/.vagrant.d/" unless 
-        end
         include_recipe "applications::homebrewcask"
         homebrew_cask "vagrant"
     when 'debian'
@@ -32,4 +29,13 @@ node["vagrant_plugins"].each do |plugin|
         user node['current_user']
         not_if "vagrant plugin list | grep #{plugin}"
     end
+end
+
+thegroup = value_for_platform(
+    ["mac_os_x"] => { "default" => "staff"},
+    "default" => "node['current_user']"
+)
+
+if File.exists?("#{node['etc']['passwd'][node['current_user']]['dir']}/.vagrant.d/")
+    FileUtils.chown_R node['current_user'], thegroup, "#{node['etc']['passwd'][node['current_user']]['dir']}/.vagrant.d/" 
 end
