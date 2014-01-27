@@ -1,4 +1,5 @@
 include_recipe "applications::default"
+include_recipe "applications::server_tuning"
 
 if platform?('mac_os_x')
     if `sudo -u #{node['current_user']} brew list -1 | grep ^postgresql$`.empty?
@@ -15,7 +16,6 @@ if platform?('mac_os_x')
             end
         end
 
-        # increase shared memory
         include_recipe "applications::increase_shared_memory"
 
         package "postgresql" do
