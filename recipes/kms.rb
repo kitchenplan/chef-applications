@@ -11,4 +11,7 @@ git "/opt/kms" do
 end
 
 # Add to the bash_profile settings
-dotfiles_bash_it_custom_plugin "bash_it/custom/kms.bash"
+dotfiles_bash_it_custom_plugin "kms" do
+    name "bash_it/custom/kms.bash"
+    cookbook "dotfiles"
+end
