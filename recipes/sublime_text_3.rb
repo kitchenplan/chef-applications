@@ -41,7 +41,7 @@ case node["platform_family"]
       
       require 'json'
       file File.expand_path("Preferences.sublime-settings", File.join(sublime_user_path)) do
-          content JSON.generate(node['sublime_text']['preferences'], {indent: "  ", object_nl: "\n"})
+          content JSON.generate(node['sublime_text']['preferences'], {:indent => "  ", :object_nl => "\n"})
           owner node['current_user']
           action :create_if_missing
       end
