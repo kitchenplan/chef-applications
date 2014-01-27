@@ -31,7 +31,7 @@ if platform?('mac_os_x')
     end
 
 elsif platform_family?('debian')
-    if node['platform_version'] == "12.04"
+    if node['platform_version'] < "13.10"
         r = apt_repository "php-5.5" do
           uri "http://ppa.launchpad.net/ondrej/php5/ubuntu"
           distribution node['lsb']['codename']

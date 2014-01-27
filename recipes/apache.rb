@@ -4,6 +4,19 @@ case node["platform_family"]
     when 'mac_os_x'
         # Nothing specific needs to happen for OSX
     when 'debian'
+
+        if node['platform_version'] < "13.10"
+            r = apt_repository "apache2-2.4" do
+                uri "http://ppa.launchpad.net/ondrej/apache2/ubuntu"
+                distribution node['lsb']['codename']
+                components ["main"]
+                keyserver "keyserver.ubuntu.com"
+                key "E5267A6C"
+                action :nothing
+            end
+            r.run_action(:add)
+        end
+
         include_recipe "apache2::default"
         include_recipe "apache2::mod_alias"
         include_recipe "apache2::mod_auth_basic"

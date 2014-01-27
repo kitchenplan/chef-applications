@@ -1,11 +1,5 @@
-if node['platform_version'] >= "13.10"
-    default['apache']['version'] = "2.4"
-    default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
-else
-    default['apache']['version'] = "2.2"
-    default['apache']['pid_file']    = '/var/run/apache2.pid'
-end
-
+default['apache']['version'] = "2.4"
+default['apache']['pid_file']    = '/var/run/apache2/apache2.pid'
 default['apache']['contact'] = "support@kunstmaan.be"
 default['apache']['listen_ports'] = ['80', '443']
 default['apache']['serversignature'] = "Off"
