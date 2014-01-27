@@ -7,6 +7,7 @@ case node["platform_family"]
         sysfs 'set io scheduler to noop' do
           variable node['sysfs']['ioscheduler']['disk']
           value 'noop'
+          only_if { File.exists?("/sys/#{node['sysfs']['ioscheduler']['disk']}")}
         end
 end
 
