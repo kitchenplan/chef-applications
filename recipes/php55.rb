@@ -48,6 +48,7 @@ elsif platform_family?('debian')
     include_recipe "php::module_common"
     include_recipe "php::module_mysql"
     include_recipe "php::module_pgsql"
+    include_recipe "php::module_curl"
     include_recipe "php::module_xml"
     include_recipe "php::module_memcache"
     include_recipe "imagemagick::default"
