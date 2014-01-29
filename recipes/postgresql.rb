@@ -92,6 +92,12 @@ if platform?('mac_os_x')
         end
     end
 
+    execute "unload postgresql by default" do
+      command "brew services stop postgresql"
+      user node['current_user']
+      not_if node["postgresql_autostart"]
+    end
+
 elsif platform_family?('debian')
     include_recipe "postgresql::server"
     include_recipe "postgresql::config_pgtune"
