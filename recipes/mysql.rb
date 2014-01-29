@@ -69,13 +69,6 @@ if platform?('mac_os_x')
         command "mysqladmin -uroot password #{PASSWORD}"
         not_if "mysql -uroot -p#{PASSWORD} -e 'show databases'"
     end
-
-    execute "unload mysql by default" do
-      command "brew services stop mysql"
-      user node['current_user']
-      not_if node["mysql_autostart"]
-    end
-
 elsif platform_family?('debian')
     include_recipe "percona::server"
     include_recipe "percona::toolkit"

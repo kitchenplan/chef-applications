@@ -1,5 +1,4 @@
 default["mysql_password"] = "password"
-default["mysql_autostart"] = TRUE
 default["percona"]["main_config_file"] = "/etc/mysql/my.cnf"
 default["percona"]["server"]["role"] = "master"
 default["percona"]["server"]["debian_password"] = node["mysql_password"]
