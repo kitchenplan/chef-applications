@@ -1,7 +1,7 @@
 case node["platform_family"]
     when 'mac_os_x'
         include_recipe "applications::homebrewcask"
-        homebrew_cask "alfred"
+        homebrew-alternative_cask "alfred"
     when 'debian'
         Chef::Log.debug("This recipe is OSX only")
 end

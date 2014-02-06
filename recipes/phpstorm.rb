@@ -1,7 +1,7 @@
 case node["platform_family"]
     when 'mac_os_x'
         include_recipe "applications::homebrewcask"
-        homebrew_cask "phpstorm"
+        homebrew-alternative_cask "phpstorm"
     when 'debian'
         phpstorm_version = "PhpStorm-7.1"
         user = node['current_user']

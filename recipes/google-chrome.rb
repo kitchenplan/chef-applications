@@ -1,7 +1,7 @@
 case node["platform_family"]
     when 'mac_os_x'
         include_recipe "applications::homebrewcask"
-        homebrew_cask "google-chrome"
+        homebrew-alternative_cask "google-chrome"
     when 'debian'
       include_recipe "apt"
       apt_repository "chrome" do

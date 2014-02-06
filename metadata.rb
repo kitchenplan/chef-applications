@@ -8,6 +8,8 @@ version          '0.0.1'
 supports         "mac_os_x"
 supports         "ubuntu"
 
+depends          "homebrew-alternative"
+
 depends          "dmg"
 depends          "composer"
 depends          "apt"
@@ -23,7 +25,6 @@ depends          "postgresql"
 depends          "php"
 depends          "imagemagick"
 depends          "nodejs"
-depends          "homebrew"
 depends          "dotfiles"
 depends          "sysctl"
 depends          "sysfs"

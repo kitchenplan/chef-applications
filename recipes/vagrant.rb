@@ -3,7 +3,7 @@ include_recipe "applications::virtualbox"
 case node["platform_family"]
     when 'mac_os_x'
         include_recipe "applications::homebrewcask"
-        homebrew_cask "vagrant"
+        homebrew-alternative_cask "vagrant"
     when 'debian'
         #nfs-kernel-server is needed for the shared folders
         %w[ nfs-kernel-server ].each do |pkg|
@@ -37,5 +37,5 @@ thegroup = value_for_platform(
 )
 
 if File.exists?("#{node['etc']['passwd'][node['current_user']]['dir']}/.vagrant.d/")
-    FileUtils.chown_R node['current_user'], thegroup, "#{node['etc']['passwd'][node['current_user']]['dir']}/.vagrant.d/" 
+    FileUtils.chown_R node['current_user'], thegroup, "#{node['etc']['passwd'][node['current_user']]['dir']}/.vagrant.d/"
 end

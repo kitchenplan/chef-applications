@@ -1,7 +1,7 @@
 case node["platform_family"]
     when 'mac_os_x'
         include_recipe "applications::homebrewcask"
-        homebrew_cask "virtualbox"
+        homebrew-alternative_cask "virtualbox"
     when 'debian'
         apt_repository "virtualbox" do
             uri "http://download.virtualbox.org/virtualbox/debian"
