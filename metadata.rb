@@ -9,3 +9,4 @@ supports         "mac_os_x"
 
 depends          "homebrewalt"
 depends          "nodejs"
+depends          "dotfiles"
