@@ -1,5 +1,7 @@
 include_recipe "homebrewalt::default"
 
+include Chef::Mixin::ShellOut
+
 #http://solutions.treypiepmeier.com/2010/02/28/installing-mysql-on-snow-leopard-using-homebrew/
 require 'pathname'
 
@@ -44,7 +46,7 @@ ruby_block "mysql_install_db" do
     active_mysql = Pathname.new("/usr/local/bin/mysql").realpath
     basedir = (active_mysql + "../../").to_s
     data_dir = "/usr/local/var/mysql"
-    Mixlib::ShellOut.new("mysql_install_db --verbose --user=#{node['current_user']} --basedir=#{basedir} --datadir=#{DATA_DIR} --tmpdir=/tmp && chown #{node['current_user']} #{data_dir}") || raise("Failed initializing mysqldb")
+    shell_out!("mysql_install_db --verbose --user=#{node['current_user']} --basedir=#{basedir} --datadir=#{DATA_DIR} --tmpdir=/tmp && chown #{node['current_user']} #{data_dir}") || raise("Failed initializing mysqldb")
   end
   not_if { File.exists?("/usr/local/var/mysql/mysql/user.MYD")}
 end
@@ -57,7 +59,7 @@ end
 ruby_block "Checking that mysql is running" do
   block do
     Timeout::timeout(60) do
-      until Mixlib::ShellOut.new("ls /tmp/mysql.sock")
+      until shell_out!("ls /tmp/mysql.sock")
         sleep 1
       end
     end

@@ -1,6 +1,8 @@
 include_recipe "homebrewalt::default"
 
-if Mixlib::ShellOut.new("sudo -u #{node['current_user']} brew list -1 | grep ^postgresql$").empty?
+include Chef::Mixin::ShellOut
+
+if shell_out!("sudo -u #{node['current_user']} brew list -1 | grep ^postgresql$").empty?
     ["homebrew.mxcl.postgresql.plist", "org.postgresql.postgres.plist" ].each do |plist|
         plist_path = File.expand_path(plist, File.join('~', 'Library', 'LaunchAgents'))
         if File.exists?(plist_path)
@@ -83,7 +85,7 @@ ruby_block "test to see if postgres is running" do
             raise "postgres is not running"
         end
         s.close
-        Mixlib::ShellOut.new("sudo -u #{node['current_user']} /usr/local/bin/psql -U postgres -h /tmp/ < /dev/null")
+        shell_out!("sudo -u #{node['current_user']} /usr/local/bin/psql -U postgres -h /tmp/ < /dev/null")
         if $?.to_i != 0
             raise "I couldn't invoke postgres!"
         end
