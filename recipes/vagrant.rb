@@ -3,7 +3,7 @@ include_recipe "applications::virtualbox"
 case node["platform_family"]
     when 'mac_os_x'
         include_recipe "applications::homebrewcask"
-        homebrew-alternative_cask "vagrant"
+        homebrewalt_cask "vagrant"
     when 'debian'
         #nfs-kernel-server is needed for the shared folders
         %w[ nfs-kernel-server ].each do |pkg|

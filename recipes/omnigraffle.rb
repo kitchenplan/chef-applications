@@ -1,7 +1,7 @@
 case node["platform_family"]
     when 'mac_os_x'
         include_recipe "applications::homebrewcask"
-        homebrew-alternative_cask "omnigraffle"
+        homebrewalt_cask "omnigraffle"
 
         gtemplate = "#{node['etc']['passwd'][node['current_user']]['dir']}/Library/Application Support/OmniGraffle/Templates/Konigi-UX-Template.gtemplate"
         unless File.exists?(gtemplate)

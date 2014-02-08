@@ -4,7 +4,7 @@ case node["platform_family"]
           owner node['current_user']
           recursive true
         end
-        include_recipe "homebrew::default"
+        include_recipe "homebrewalt::default"
     when 'debian'
         execute "change to a BE mirror" do
             command "sudo sed 's@us.archive.ubuntu.com@be.archive.ubuntu.com@' -i /etc/apt/sources.list"

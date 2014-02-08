@@ -8,7 +8,7 @@ version          '0.0.1'
 supports         "mac_os_x"
 supports         "ubuntu"
 
-depends          "homebrew-alternative"
+depends          "homebrewalt"
 
 depends          "dmg"
 depends          "composer"
