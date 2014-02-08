@@ -3,7 +3,7 @@ case node["platform_family"]
       if !File.exists?("/Applications/svgo-gui.app")
 
           include_recipe "nodejs::default"
-          nodejs_package svgo
+          nodejs_package "svgo"
 
           git "/tmp/svgo-gui" do
               repository "git://github.com/svg/svgo-gui.git"
