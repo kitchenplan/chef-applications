@@ -1,12 +1,9 @@
 case node["platform_family"]
     when 'mac_os_x'
       if !File.exists?("/Applications/svgo-gui.app")
-          include_recipe "applications::nodejs"
 
-          execute "Install svgo with npm" do
-                command "sudo npm install -g svgo"
-                user "root"
-          end
+          include_recipe "nodejs::default"
+          nodejs_package svgo
 
           git "/tmp/svgo-gui" do
               repository "git://github.com/svg/svgo-gui.git"
