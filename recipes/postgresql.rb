@@ -1,5 +1,6 @@
 include_recipe "homebrewalt::default"
 
+require 'chef/mixin/shell_out'
 include Chef::Mixin::ShellOut
 
 if shell_out!("sudo -u #{node['current_user']} brew list -1 | grep ^postgresql$").empty?

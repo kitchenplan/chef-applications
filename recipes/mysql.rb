@@ -1,5 +1,6 @@
 include_recipe "homebrewalt::default"
 
+require 'chef/mixin/shell_out'
 include Chef::Mixin::ShellOut
 
 #http://solutions.treypiepmeier.com/2010/02/28/installing-mysql-on-snow-leopard-using-homebrew/
