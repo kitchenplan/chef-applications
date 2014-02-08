@@ -1,5 +1,3 @@
-include_recipe "applications::default"
-
 case node["platform_family"]
     when 'mac_os_x'
         execute "set the root user shell to bash" do

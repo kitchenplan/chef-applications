@@ -1,6 +1,7 @@
 case node["platform_family"]
     when 'mac_os_x'
-        homebrew_tap "homebrew/dupes"
+        include_recipe "homebrewalt::default"
+        homebrewalt_tap "homebrew/dupes"
         package "apple-gcc42" do
           action [:install, :upgrade]
         end

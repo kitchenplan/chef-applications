@@ -1,8 +1,8 @@
-include_recipe "applications::packagemanager"
 include_recipe "applications::composer"
 
 case node["platform_family"]
     when 'mac_os_x'
+        include_recipe "homebrewalt::default"
         homebrew_tap "homebrew/dupes"
         homebrew_tap "homebrew/versions"
         homebrew_tap "mcuadros/homebrew-hhvm"

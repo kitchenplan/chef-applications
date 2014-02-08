@@ -1,7 +1,7 @@
-include_recipe "applications::default"
+include_recipe "homebrewalt::default"
 
 if platform_family?("mac_os_x")
-   homebrew_tap "homebrew/dupes"
+   homebrewalt_tap "homebrew/dupes"
 end
 
 package "rsync" do

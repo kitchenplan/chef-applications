@@ -1,9 +1,9 @@
-include_recipe "applications::default"
+include_recipe "homebrewalt::default"
 include_recipe "applications::postgresql"
 include_recipe "applications::mysql"
 
-homebrew_tap "josegonzalez/php"
-homebrew_tap "homebrew/dupes"
+homebrewalt_tap "josegonzalez/php"
+homebrewalt_tap "homebrew/dupes"
 
 package "php54" do |variable|
     options "--with-mysql --with-pgsql --with-imap"

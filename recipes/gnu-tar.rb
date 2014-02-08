@@ -1,7 +1,7 @@
-include_recipe "applications::default"
-
 case node["platform_family"]
     when 'mac_os_x'
+        include_recipe "homebrewalt::default"
+
         package "gnu-tar" do
           action [:install, :upgrade]
         end

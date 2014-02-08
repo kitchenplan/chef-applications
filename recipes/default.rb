@@ -1,1 +1,1 @@
-include_recipe "applications::packagemanager"
+# do nothing
