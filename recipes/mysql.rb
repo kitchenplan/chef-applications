@@ -61,7 +61,7 @@ end
 ruby_block "Checking that mysql is running" do
   block do
     Timeout::timeout(60) do
-      until shell_out!("ls /tmp/mysql.sock")
+      until File.exists?("/tmp/mysql.sock")
         sleep 1
       end
     end
