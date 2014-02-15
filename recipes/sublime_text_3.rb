@@ -7,24 +7,11 @@ sublime_package_path = "#{sublime_path}/Packages"
 sublime_user_path = "#{sublime_package_path}/User"
 sublime_installed_packages_path = "#{sublime_path}/Installed Packages"
 
-directory sublime_path do
-    owner node['current_user']
-    recursive true
-end
-
-directory sublime_package_path do
-    owner node['current_user']
-    recursive true
-end
-
-directory sublime_user_path do
-    owner node['current_user']
-    recursive true
-end
-
-directory sublime_installed_packages_path do
-    owner node['current_user']
-    recursive true
+[sublime_path, sublime_package_path, sublime_user_path, sublime_installed_packages_path].each do |dir|
+    directory dir do
+        owner node['current_user']
+        recursive true
+    end
 end
 
 remote_file "#{sublime_installed_packages_path}/Package Control.sublime-package" do
@@ -36,7 +23,7 @@ end
 # Linter dependencies
 nodejs_package "jshint"
 nodejs_package "csslint"
- 
+
 node["sublime_text_packages"].each do |package|
     applications_sublime_package package["name"] do
         source package["source"]
