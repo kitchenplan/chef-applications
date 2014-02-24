@@ -20,9 +20,11 @@ remote_file "#{sublime_installed_packages_path}/Package Control.sublime-package"
     action :create_if_missing
 end
 
-# Linter dependencies
-nodejs_package "jshint"
-nodejs_package "csslint"
+if node["sublime_use_nodejs"]
+    # Linter dependencies
+    nodejs_package "jshint"
+    nodejs_package "csslint"
+end
 
 node["sublime_text_packages"].each do |package|
     applications_sublime_package package["name"] do

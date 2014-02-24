@@ -1,3 +1,5 @@
+node.default["sublime_use_nodejs"] = TRUE
+
 node.default["sublime_text_packages"] = [
     {
         "name"   => "SideBarEnhancements",
