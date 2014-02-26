@@ -1,4 +1,4 @@
-node.default["sublime_use_nodejs"] = TRUE
+node.default["sublime_use_nodejs"] = FALSE
 
 node.default["sublime_text_packages"] = [
     {
@@ -40,41 +40,6 @@ node.default["sublime_text_packages"] = [
         "name"   => "ApplySyntax",
         "source" => "https://github.com/facelessuser/ApplySyntax.git",
         "branch" => "ST3"
-    },
-    {
-        "name"   => "SublimeLinter",
-        "source" => "https://github.com/SublimeLinter/SublimeLinter3.git",
-        "branch" => "master"
-    },
-    {
-        "name"   => "SublimeLinter-jshint",
-        "source" => "https://github.com/SublimeLinter/SublimeLinter-jshint.git",
-        "branch" => "master"
-    },
-    {
-        "name"   => "SublimeLinter-ruby",
-        "source" => "https://github.com/SublimeLinter/SublimeLinter-ruby.git",
-        "branch" => "master"
-    },
-    {
-        "name"   => "SublimeLinter-php",
-        "source" => "https://github.com/SublimeLinter/SublimeLinter-php.git",
-        "branch" => "master"
-    },
-    {
-        "name"   => "SublimeLinter-json",
-        "source" => "https://github.com/SublimeLinter/SublimeLinter-json.git",
-        "branch" => "master"
-    },
-    {
-        "name"   => "SublimeLinter-csslint",
-        "source" => "https://github.com/SublimeLinter/SublimeLinter-csslint.git",
-        "branch" => "master"
-    },
-    {
-        "name"   => "SublimeCodeIntel",
-        "source" => "https://github.com/SublimeCodeIntel/SublimeCodeIntel.git",
-        "branch" => "master"
     }
 ]
 
