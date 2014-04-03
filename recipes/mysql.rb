@@ -70,6 +70,6 @@ end
 
 execute "set the root password to the default" do
     command "mysqladmin -uroot password '#{PASSWORD}'"
-    not_if "mysql -uroot #{PASSWORD.empty? ? "" : "-p '#{PASSWORD}'"} -e 'show databases'"
+    not_if "mysql -uroot #{PASSWORD.empty? ? "" : "-p'#{PASSWORD}'"} -e 'show databases'"
 end
 
