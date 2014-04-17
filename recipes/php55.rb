@@ -6,7 +6,7 @@ homebrewalt_tap "homebrew/dupes"
 homebrewalt_tap "josegonzalez/php"
 
 package "php55" do |variable|
-    options "--with-mysql --with-pgsql --with-imap"
+    options "--with-mysql --with-pgsql"
 end
 
 %w[ php55-apcu php55-http php55-xdebug php55-intl php55-yaml php55-imagick php55-solr php55-twig php55-mcrypt php55-mongo php55-memcached].each do |pkg|
