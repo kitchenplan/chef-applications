@@ -1,0 +1,42 @@
+
+<% if node['platform_family'] == "mac_os_x" %>
+    User <%= @user %>
+    Group staff
+    Listen 443
+    Include /etc/apache2/conf/projects.d/namevirtualhosts
+<% end %>
+
+<Location /server-info>
+    SetHandler server-info
+    <IfVersion < 2.4>
+        Order deny,allow
+        Deny from all
+        Allow from 127.0.0.1
+    </IfVersion>
+    <IfVersion >= 2.4>
+        Require all denied
+        Require local
+    </IfVersion>
+</Location>
+
+ExtendedStatus on
+
+<Location /server-status>
+    SetHandler server-status
+    <IfVersion < 2.4>
+        Order deny,allow
+        Deny from all
+        Allow from 127.0.0.1
+    </IfVersion>
+    <IfVersion >= 2.4>
+        Require all denied
+        Require local
+    </IfVersion>
+</Location>
+
+<IfVersion < 2.4>
+    Include /etc/apache2/conf/projects.d/[^.#]*.conf
+</IfVersion>
+<IfVersion >= 2.4>
+    IncludeOptional /etc/apache2/conf/projects.d/[^.#]*.conf
+</IfVersion>
