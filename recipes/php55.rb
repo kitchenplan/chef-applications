@@ -3,10 +3,10 @@ include_recipe "applications::postgresql"
 include_recipe "applications::mysql"
 
 homebrewalt_tap "homebrew/dupes"
-homebrewalt_tap "josegonzalez/php"
+homebrewalt_tap "homebrew/homebrew-php"
 
 package "php55" do |variable|
-    options "--with-mysql --with-pgsql"
+    options "--with-mysql --with-pgsql --with-apache --with-homebrew-openssl --with-intl"
 end
 
 %w[ php55-apcu php55-http php55-xdebug php55-intl php55-yaml php55-imagick php55-solr php55-twig php55-mcrypt php55-mongo php55-memcached].each do |pkg|
