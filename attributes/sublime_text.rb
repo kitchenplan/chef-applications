@@ -19,7 +19,7 @@ node.default["sublime_text_packages"] = [
     {
         "name"   => "BracketHighlighter",
         "source" => "https://github.com/facelessuser/BracketHighlighter.git",
-        "branch" => "BH2ST3"
+        "branch" => "ST3"
     },
     {
         "name"   => "PHP-Twig",
