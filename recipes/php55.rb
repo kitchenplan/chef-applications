@@ -9,7 +9,7 @@ package "php55" do |variable|
     options "--with-mysql --with-pgsql --with-apache"
 end
 
-%w[ php55-apcu php55-http php55-xdebug php55-intl php55-yaml php55-imagick php55-twig php55-mcrypt].each do |pkg|
+%w[ php55-apcu php55-http php55-xdebug php55-yaml php55-imagick php55-twig php55-mcrypt].each do |pkg|
     package pkg do
         action [:install, :upgrade]
     end
