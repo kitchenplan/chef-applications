@@ -15,8 +15,8 @@ end
     end
 end
 
-template "/usr/local/etc/php/5.5/conf.d/99-kunstmaan.ini" do
-    source "php90kunstmaan.erb"
+template "/usr/local/etc/php/5.5/conf.d/99-extras.ini" do
+    source "phpini.erb"
     owner node['current_user']
     mode "0644"
 end
