@@ -22,7 +22,7 @@ template "/usr/local/etc/php/5.6/conf.d/99-kunstmaan.ini" do
 end
 
 template "/etc/apache2/other/php.conf" do
-  source "apache_php65.erb"
+  source "apache_php56.erb"
   owner node['current_user']
   mode "0755"
 end
