@@ -1,5 +1,3 @@
-include_recipe "applications::composer"
-
 case node["platform_family"]
     when 'mac_os_x'
         include_recipe "homebrewalt::default"
