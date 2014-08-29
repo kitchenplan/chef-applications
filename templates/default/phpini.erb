@@ -1,4 +1,4 @@
 [<%= node['current_user'] %>]
 <% node['php']['ini_settings'].each do |setting, value|  %>
-	#{setting} = #{value}
+	<%= setting %> = <%= value %>
 <% end %>
