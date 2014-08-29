@@ -14,14 +14,17 @@ end
     end
 end
 
-template "/usr/local/etc/php/5.6/conf.d/99-kunstmaan.ini" do
-    source "php90kunstmaan.erb"
+template "/usr/local/etc/php/5.6/conf.d/99-extras.ini" do
+    source "phpini.erb"
     owner node['current_user']
     mode "0644"
 end
 
 template "/etc/apache2/other/php.conf" do
-  source "apache_php56.erb"
+  source "apache_php.erb"
   owner node['current_user']
   mode "0755"
+  variables(
+    :version => 56
+  )
 end
