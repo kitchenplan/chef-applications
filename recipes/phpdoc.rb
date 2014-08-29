@@ -1,5 +1,5 @@
 include_recipe 'applications::php55'
 
-package "composer" do
+package "phpdocumentor" do
     action [:install, :upgrade]
 end
