@@ -1,5 +1,5 @@
 include_recipe 'applications::php55'
 
-package "composer" do
+package "phpunit" do
     action [:install, :upgrade]
 end
