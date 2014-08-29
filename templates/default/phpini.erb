@@ -1,4 +1,4 @@
 [<%= node['current_user'] %>]
-<% ['php']['ini_settings'].each_with_index do |value, index|  %>
-	#{index} = #{value}
+<% node['php']['ini_settings'].each do |setting, value|  %>
+	#{setting} = #{value}
 <% end %>
