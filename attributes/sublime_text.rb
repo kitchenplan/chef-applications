@@ -40,14 +40,19 @@ node.default["sublime_text_packages"] = [
         "name"   => "ApplySyntax",
         "source" => "https://github.com/facelessuser/ApplySyntax.git",
         "branch" => "ST3"
+    },
+    {
+        "name"   => "Theme - Flatland",
+        "source" => "git://github.com/thinkpixellab/flatland.git",
+        "branch" => "master"
     }
 ]
 
-node.default["sublime_text"]["color_scheme"] = "Packages/Base16/base16-eighties.dark.tmTheme"
+node.default["sublime_text"]["color_scheme"] = "Packages/Theme - Flatland/Flatland Dark.tmTheme"
 
 node.default['sublime_text']['preferences'] = {}.tap do |prefs|
     prefs["color_scheme"] = node['sublime_text']['color_scheme']
-    prefs["theme"] = "ProKit.sublime-theme"
+    prefs["theme"] = "Flatland Dark.sublime-theme"
     prefs["auto_complete"] = true
     prefs["auto_complete_commit_on_tab"] = true
     prefs["auto_complete_with_fields"] = true
