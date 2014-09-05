@@ -28,3 +28,5 @@ template "/etc/apache2/other/php.conf" do
     :version => 56
   )
 end
+
+include_recipe "applications::php-apps"
