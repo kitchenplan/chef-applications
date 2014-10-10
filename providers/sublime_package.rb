@@ -3,6 +3,7 @@ action :install do
     repository new_resource.source
     user new_resource.owner
     reference new_resource.branch
+    enable_checkout false
     action :sync
   end
 
