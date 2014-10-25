@@ -81,7 +81,7 @@ end
 git "/opt/skylab" do
     repository "https://github.com/Kunstmaan/skylab.git"
     user node['current_user']
-    reference master
+    reference "master"
     enable_checkout false
     action :sync
 end
