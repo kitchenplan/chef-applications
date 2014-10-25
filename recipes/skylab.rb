@@ -1,3 +1,5 @@
+include_recipe "osxdefaults::finder_unhide_home"
+
 %w{
   /etc/apache2/conf/projects.d
   /etc/apache2/logs
