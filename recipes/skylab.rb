@@ -77,3 +77,12 @@ execute "grant the postgresql Skylab superuser" do
     user postgresuser
     not_if do ::File.exists?("#{dblocation}/.grant-postgresql-skylab-user-success") end
 end
+
+git "/opt/skylab" do
+    repository "https://github.com/Kunstmaan/skylab.git"
+    user node['current_user']
+    reference master
+    enable_checkout false
+    action :sync
+end
+
