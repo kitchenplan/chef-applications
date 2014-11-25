@@ -78,11 +78,20 @@ execute "grant the postgresql Skylab superuser" do
     not_if do ::File.exists?("#{dblocation}/.grant-postgresql-skylab-user-success") end
 end
 
-git "/opt/skylab" do
-    repository "https://github.com/Kunstmaan/skylab.git"
-    user node['current_user']
-    reference "master"
-    enable_checkout false
-    action :sync
-end
+#git "/opt/skylab" do
+#    repository "https://github.com/Kunstmaan/skylab.git"
+#    user node['current_user']
+#    reference "master"
+#    enable_checkout false
+#    action :sync
+#end
 
+execute "get-skylab" do
+    user node['current_user']
+    cwd "/usr/local/bin/"
+    command "curl -sSL https://raw.github.com/Kunstmaan/skylab/master/installer | php"
+end
+execute "mv-skylab" do
+    cwd "/usr/local/bin/"
+    command "mv skylab.phar /usr/local/bin/skylab"
+end
