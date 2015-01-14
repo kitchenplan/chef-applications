@@ -36,6 +36,10 @@ case node["platform_family"]
             action :create
             recursive true
         end
+        
+        template "/etc/apache2/other/000-modjk.conf" do
+            source "apache/jk.conf.erb"
+        end
     when 'debian'
         Chef::Log.debug("This recipe is OSX only")
 end
