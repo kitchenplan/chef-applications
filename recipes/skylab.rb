@@ -95,3 +95,7 @@ execute "mv-skylab" do
     cwd "/usr/local/bin/"
     command "mv skylab.phar /usr/local/bin/skylab"
 end
+
+link '/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home' do
+  to '/opt/jdk/default'
+end
