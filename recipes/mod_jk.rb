@@ -2,23 +2,23 @@ case node["platform_family"]
     when 'mac_os_x'
         unless File.exists?("/usr/libexec/apache2/mod_jk.so")
 
-          remote_file "#{Chef::Config[:file_cache_path]}/tomcat-connectors-1.2.37-src.tar.gz" do
-            source "http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.37-src.tar.gz"
+          remote_file "#{Chef::Config[:file_cache_path]}/tomcat-connectors-1.2.40-src.tar.gz" do
+            source "http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.40-src.tar.gz"
             owner node['current_user']
           end
 
           execute "extract tomcat-connectors" do
-            command "tar vxzf #{Chef::Config[:file_cache_path]}/tomcat-connectors-1.2.37-src.tar.gz -C #{Chef::Config[:file_cache_path]}/"
+            command "tar vxzf #{Chef::Config[:file_cache_path]}/tomcat-connectors-1.2.40-src.tar.gz -C #{Chef::Config[:file_cache_path]}/"
             user node['current_user']
           end
 
           execute "symlink Xcode" do
-            command "cd /Applications/Xcode.app/Contents/Developer/Toolchains;sudo ln -s XcodeDefault.xctoolchain OSX10.8.xctoolchain"
+            command "cd /Applications/Xcode.app/Contents/Developer/Toolchains;sudo ln -s XcodeDefault.xctoolchain OSX10.10.xctoolchain"
           end
 
           bash "install_program" do
             user "root"
-            cwd "#{Chef::Config[:file_cache_path]}/tomcat-connectors-1.2.37-src/native"
+            cwd "#{Chef::Config[:file_cache_path]}/tomcat-connectors-1.2.40-src/native"
             code <<-EOH
                 ./configure --with-apxs=/usr/sbin/apxs
                 make
@@ -35,6 +35,10 @@ case node["platform_family"]
             mode 0777
             action :create
             recursive true
+        end
+        
+        template "/etc/apache2/other/000-modjk.conf" do
+            source "apache/jk.conf.erb"
         end
     when 'debian'
         Chef::Log.debug("This recipe is OSX only")
