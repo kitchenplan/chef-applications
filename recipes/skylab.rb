@@ -96,7 +96,7 @@ execute "mv-skylab" do
     command "mv skylab.phar /usr/local/bin/skylab"
 end
 
-link '/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home' do
-  to '/opt/jdk/default'
+link '/opt/jdk/default' do
+  to '/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home'
   user 'root'
 end
