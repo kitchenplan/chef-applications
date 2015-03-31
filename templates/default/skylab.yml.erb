@@ -1,31 +1,8 @@
-projects:
-    path:       "/home/projects"
-    backuppath: "/home/backupped-projects"
-
 users:
-    superuser:      root
-    supergroup:     root
-    wwwuser:        nginx
-    postgresuser:   postgres
-
-apache:
-    admin:        support@kunstmaan.be
-    vhostdir:     /etc/apache2/conf/projects.d
-
-nginx:
-    sitesavailable: /etc/nginx/sites-available
-    sitesenabled:   /etc/nginx/sites-enabled
-    port:           80
+    wwwuser:        apache
 
 webserver:
     engine: apache
-    hostmachine:    dev.kunstmaan.be
-
-php:
-    slowlog_timeout: 10s
-
-awstats:
-    password: password
 
 mysql:
     user:     root
@@ -34,33 +11,6 @@ mysql:
 postgresql:
     user:     skylab
     password: password
-
-pingdom:
-    username:
-    password:
-    token:
-    contactids:
-
-skeletons:
-    base:       Kunstmaan\Skylab\Skeleton\BaseSkeleton
-    mysql:      Kunstmaan\Skylab\Skeleton\MySQLSkeleton
-    apache:     Kunstmaan\Skylab\Skeleton\WebserverSkeleton
-    nginx:      Kunstmaan\Skylab\Skeleton\WebserverSkeleton
-    php5:       Kunstmaan\Skylab\Skeleton\PHPSkeleton
-    symfony:    Kunstmaan\Skylab\Skeleton\SymfonySkeleton
-    awstats:    false # with varnish this is useless
-    anacron:    Kunstmaan\Skylab\Skeleton\AnacronSkeleton
-    fcron:      false # We only support anacron at this point
-    logrotate:  false # Full functionality has been replaced by the Skylab chef cookbook
-    nagios:     false # We no longer use Nagios to monitor our websites
-    mon:        false # We no longer use Mon to monitor our websites
-    pingdom:    Kunstmaan\Skylab\Skeleton\PingdomSkeleton
-    postgres:   Kunstmaan\Skylab\Skeleton\PostgreSQLSkeleton
-    tomcat:     Kunstmaan\Skylab\Skeleton\TomcatSkeleton
-    smartcms:   Kunstmaan\Skylab\Skeleton\JavaSkeleton
-    mongo:      false
-    dailycron:  false
-    solr:       false
 
 debug: true
 develmode: true
