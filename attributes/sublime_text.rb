@@ -30,6 +30,11 @@ node.default["sublime_text_packages"] = [
         "name"   => "ApplySyntax",
         "source" => "https://github.com/facelessuser/ApplySyntax.git",
         "branch" => "ST3"
+    },
+    {
+        "name"   => "SublimeAllAutocomplete",
+        "source" => "https://github.com/alienhard/SublimeAllAutocomplete",
+        "branch" => "master"
     }
 ]
 
