@@ -14,7 +14,7 @@ node.default["sublime_text_packages"] = [
     {
         "name"   => "BracketHighlighter",
         "source" => "https://github.com/facelessuser/BracketHighlighter.git",
-        "branch" => "ST3"
+        "branch" => "master"
     },
     {
         "name"   => "Theme - Soda",
