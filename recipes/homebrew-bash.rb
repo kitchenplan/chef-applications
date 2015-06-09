@@ -16,3 +16,11 @@ execute "change shell for the current user" do
   command "chsh -s /usr/local/bin/bash #{node['current_user']}"
   user 'root'
 end
+
+execute "set the root user shell to bash" do
+  command "dscl . -create /Users/root UserShell /usr/local/bin/bash"
+end
+
+link "/root" do
+  to "/var/root"
+end
