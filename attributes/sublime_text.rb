@@ -29,7 +29,7 @@ node.default["sublime_text_packages"] = [
     {
         "name"   => "ApplySyntax",
         "source" => "https://github.com/facelessuser/ApplySyntax.git",
-        "branch" => "ST3"
+        "branch" => "master"
     },
     {
         "name"   => "SublimeAllAutocomplete",
