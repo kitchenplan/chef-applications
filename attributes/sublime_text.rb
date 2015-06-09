@@ -12,23 +12,13 @@ node.default["sublime_text_packages"] = [
         "branch" => "master"
     },
     {
-        "name"   => "SCSS",
-        "source" => "https://github.com/MarioRicalde/SCSS.tmbundle.git",
-        "branch" => "SublimeText2"
-    },
-    {
         "name"   => "BracketHighlighter",
         "source" => "https://github.com/facelessuser/BracketHighlighter.git",
         "branch" => "ST3"
     },
     {
-        "name"   => "PHP-Twig",
-        "source" => "https://github.com/Anomareh/PHP-Twig.tmbundle.git",
-        "branch" => "master"
-    },
-    {
-        "name"   => "Theme - Aqua",
-        "source" => "https://github.com/cafarm/aqua-theme.git",
+        "name"   => "Theme - Soda",
+        "source" => "https://github.com/buymeasoda/soda-theme.git",
         "branch" => "master"
     },
     {
@@ -43,13 +33,13 @@ node.default["sublime_text_packages"] = [
     }
 ]
 
-node.default["sublime_text"]["color_scheme"] = "Packages/Base16/base16-tomorrow.dark.tmTheme"
-node.default["sublime_text"]["color_scheme"] = "Soda Dark 3.sublime-theme"
+node.default["sublime_text"]["color_scheme"] = "Packages/Base16/base16-tomorrow.light.tmTheme"
+node.default["sublime_text"]["theme"] = "Soda Light 3.sublime-theme"
 
 
 node.default['sublime_text']['preferences'] = {}.tap do |prefs|
     prefs["color_scheme"] = node['sublime_text']['color_scheme']
-    prefs["theme"] = "Flatland Dark.sublime-theme"
+    prefs["theme"] = node["sublime_text"]["theme"]
     prefs["auto_complete"] = true
     prefs["auto_complete_commit_on_tab"] = true
     prefs["auto_complete_with_fields"] = true
