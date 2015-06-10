@@ -6,7 +6,7 @@ case node["platform_family"]
           action [:install, :upgrade]
         end
 
-        link "/usr/bin/tar" do
+        link "/usr/local/bin/tar" do
             to "/usr/local/bin/gtar"
         end
     when 'debian'
