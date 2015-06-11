@@ -38,8 +38,8 @@ node.default["sublime_text_packages"] = [
     }
 ]
 
-node.default["sublime_text"]["color_scheme"] = "Packages/Base16/base16-tomorrow.light.tmTheme"
-node.default["sublime_text"]["theme"] = "Soda Light 3.sublime-theme"
+node.default["sublime_text"]["color_scheme"] = "Packages/Base16/base16-tomorrow.dark.tmTheme"
+node.default["sublime_text"]["theme"] = "Soda Dark 3.sublime-theme"
 
 
 node.default['sublime_text']['preferences'] = {}.tap do |prefs|
