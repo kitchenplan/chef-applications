@@ -3,7 +3,6 @@
     User <%= @user %>
     Group staff
     Listen 443
-    Include /etc/apache2/conf/projects.d/namevirtualhosts
 <% end %>
 
 <Location /server-info>
@@ -35,8 +34,8 @@ ExtendedStatus on
 </Location>
 
 <IfVersion < 2.4>
-    Include /etc/apache2/conf/projects.d/[^.#]*.conf
+    Include /etc/apache2/sites-enabled/[^.#]*.conf
 </IfVersion>
 <IfVersion >= 2.4>
-    IncludeOptional /etc/apache2/conf/projects.d/[^.#]*.conf
+    IncludeOptional /etc/apache2/sites-enabled/[^.#]*.conf
 </IfVersion>
