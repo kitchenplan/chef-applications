@@ -7,6 +7,7 @@ include_recipe "osxdefaults::finder_unhide_home"
   /etc/tomcat
   /home/projects
   /home/backupped-projects
+  /etc/libapache2-mod-jk
   /opt/nowebsite
   /opt/jdk
 }.each do |dir|
@@ -17,6 +18,18 @@ include_recipe "osxdefaults::finder_unhide_home"
     action :create
     recursive true
   end
+end
+
+%w{/etc/libapache2-mod-jk/workers.properties}.each do |pkg|
+    file pkg do
+        owner "root"
+        group value_for_platform(
+            "mac_os_x" => { "default" => "admin" },
+            "default" => "root"
+        )
+        mode 0777
+        action :touch
+    end
 end
 
 otherlocation = value_for_platform(
