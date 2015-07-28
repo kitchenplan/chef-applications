@@ -1,16 +1,17 @@
-users:
-    wwwuser:        apache
-
 webserver:
     engine: apache
+    hostmachine: dev.kunstmaan.be
+
+users:
+    wwwuser: <%= @user %>
 
 mysql:
-    user:     root
+    user: root
     password: password
 
 postgresql:
-    user:     skylab
+    user: skylab
     password: password
 
-debug: true
-develmode: true
+debug: false
+develmode: false
