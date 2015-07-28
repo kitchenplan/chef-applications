@@ -1,7 +1,8 @@
 include_recipe "osxdefaults::finder_unhide_home"
 
 %w{
-  /etc/apache2/conf/projects.d
+  /etc/apache2/sites-available
+  /etc/apache2/sites-enabled
   /etc/apache2/logs
   /etc/tomcat
   /home/projects
@@ -16,18 +17,6 @@ include_recipe "osxdefaults::finder_unhide_home"
     action :create
     recursive true
   end
-end
-
-%w{/etc/apache2/conf/projects.d/namevirtualhosts /etc/apache2/workers.properties}.each do |pkg|
-    file pkg do
-        owner "root"
-        group value_for_platform(
-            "mac_os_x" => { "default" => "admin" },
-            "default" => "root"
-        )
-        mode 0777
-        action :touch
-    end
 end
 
 otherlocation = value_for_platform(
