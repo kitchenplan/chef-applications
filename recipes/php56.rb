@@ -8,7 +8,7 @@ package "php56" do |variable|
     options "--with-mysql --with-apache"
 end
 
-%w[ php56-apcu php56-http php56-xdebug php56-memcached php56-symfony-debug php56-mongo php56-yaml php56-imagick php56-twig php56-mcrypt php56-intl].each do |pkg|
+%w[ php56-apcu php56-http php56-xdebug php56-memcached php56-symfony-debug php56-mongo php56-yaml php56-imagick php56-twig php56-mcrypt php56-intl php56-pdo-pgsql].each do |pkg|
     package pkg do
         action [:install, :upgrade]
     end
