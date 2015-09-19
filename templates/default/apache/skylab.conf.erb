@@ -1,8 +1,6 @@
 ServerName dev.kunstmaan.be
 
 LoadModule rewrite_module libexec/apache2/mod_rewrite.so
-LoadModule socache_shmcb_module libexec/apache2/mod_socache_shmcb.so
-LoadModule ssl_module libexec/apache2/mod_ssl.so
 
 <% if node['platform_family'] == "mac_os_x" %>
     User <%= @user %>
